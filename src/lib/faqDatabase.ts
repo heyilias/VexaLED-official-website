@@ -160,7 +160,7 @@ export const faqDatabase: FAQEntry[] = [
   {
     keywords: ['hello', 'hi', 'hey', 'good morning', 'good evening', 'hola', 'bonjour', 'مرحبا', '你好', 'salut'],
     answer: {
-      en: 'Hello! 👋 Welcome to VEXALED. I\'m here to help you with:\n\n• **Product information** — COB, Indoor, Outdoor, Rental displays\n• **Technical specifications** — Pixel pitch, brightness, refresh rate\n• **Pricing guidance** — Budget ranges for your project\n• **Installation** — Setup process and requirements\n• **Support** — Warranty, maintenance, and service\n\nWhat would you like to know about?',
+      en: 'Hello! 👋 Welcome to VEXALED. I\'m here to help you with:\n\n• **Product information** — LED Screens, Puck Lights, Wash Lights, Moving Heads\n• **Technical specifications** — Resolution, brightness, beam angle\n• **Pricing guidance** — Budget ranges for your project\n• **Installation** — Setup process and requirements\n• **Support** — Warranty, maintenance, and service\n\nWhat would you like to know about?',
       zh: '您好！👋 欢迎来到 VEXALED。我可以帮助您了解：产品信息、技术规格、价格指导、安装和支持。请问有什么需要？',
       es: '¡Hola! 👋 Bienvenido a VEXALED. Puedo ayudarle con: información de productos, especificaciones, precios, instalación y soporte.',
       fr: 'Bonjour ! 👋 Bienvenue chez VEXALED. Je peux vous aider avec : produits, spécifications, prix, installation et support.',
@@ -196,7 +196,7 @@ export function findBestMatch(query: string): FAQEntry | null {
 // Generate a fallback response when no FAQ matches
 export function getFallbackResponse(lang: string): string {
   const fallbacks: Record<string, string> = {
-    en: 'I appreciate your question! While I don\'t have a specific answer for that, I can help you with:\n\n• **Products** — COB, Indoor, Outdoor, Rental LED displays\n• **Specifications** — Pixel pitch, brightness, resolution\n• **Pricing** — Budget guidance for your project\n• **Installation & Support** — Setup, warranty, maintenance\n• **Company info** — About VEXALED, global offices\n\nTry asking about any of these topics, or use the **"Talk to an Engineer"** button for specialized assistance.',
+    en: 'I appreciate your question! While I don\'t have a specific answer for that, I can help you with:\n\n• **Products** — LED Screens, Puck Lights, Wash Lights, Moving Heads\n• **Specifications** — Resolution, brightness, beam angle\n• **Pricing** — Budget guidance for your project\n• **Installation & Support** — Setup, warranty, maintenance\n• **Company info** — About VEXALED, global offices\n\nTry asking about any of these topics, or use the **"Talk to an Engineer"** button for specialized assistance.',
     zh: '感谢您的提问！我可以帮助您了解：产品（COB、室内、户外、Rental LED 显示屏）、规格、价格、安装和支持。请尝试询问这些话题。',
     es: 'Gracias por su pregunta. Puedo ayudarle con: productos LED, especificaciones, precios, instalación y soporte. Intente preguntar sobre estos temas.',
     fr: 'Merci pour votre question. Je peux vous aider avec : produits LED, spécifications, prix, installation et support.',

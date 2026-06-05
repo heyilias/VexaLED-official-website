@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
+import SEOHead from '@/components/SEOHead';
 import { ArrowRight, ArrowLeft, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
@@ -44,6 +46,10 @@ export default function Configurator() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar onSearchClick={() => setIsSearchOpen(true)} isSearchOpen={isSearchOpen} onCloseSearch={() => setIsSearchOpen(false)} />
+      <SEOHead
+        title="LED Display Configurator"
+        description="Configure your ideal VexaLED display solution. Select installation type, pixel pitch, brightness, and shape to find the perfect LED screen for your project."
+      />
 
       <div className="pt-20 pb-16 px-6 md:px-12 lg:px-24">
         {/* Header */}
@@ -266,7 +272,7 @@ export default function Configurator() {
               <Button
                 variant="hero"
                 size="lg"
-                onClick={() => selectedProduct ? setStep(2) : alert('Please select a product first.')}
+                onClick={() => selectedProduct ? setStep(2) : toast.error('Please select a product first.')}
                 className="group"
               >
                 Next

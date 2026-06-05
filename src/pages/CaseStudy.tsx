@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchOverlay from "@/components/SearchOverlay";
@@ -9,7 +10,8 @@ import { usePageTranslations } from "@/i18n/usePageTranslations";
 import { getCaseStudy } from "@/data/caseStudyData";
 import { Button } from "@/components/ui/button";
 
-const iconMap: Record<string, any> = { Cpu, Video, Umbrella, Sun, Shield, Maximize, Eye, Palette, Sliders, Check };
+import type { LucideIcon } from 'lucide-react';
+const iconMap: Record<string, LucideIcon> = { Cpu, Video, Umbrella, Sun, Shield, Maximize, Eye, Palette, Sliders, Check };
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -33,8 +35,35 @@ const CaseStudy = () => {
     return <Navigate to="/case-studies" replace />;
   }
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": study.title,
+    "description": study.description,
+    "image": study.image,
+    "author": { "@type": "Organization", "name": "VexaLED" },
+    "publisher": { "@type": "Organization", "name": "VexaLED", "logo": { "@type": "ImageObject", "url": "https://vexaled.com/og-image.png" } },
+    "datePublished": "2024-01-01",
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://vexaled.com" },
+      { "@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://vexaled.com/case-studies" },
+      { "@type": "ListItem", "position": 3, "name": study.title, "item": `https://vexaled.com/case-study/${study.slug}` },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-background font-sans selection:bg-primary/20">
+      <SEOHead
+        title={study.title}
+        description={study.valueStatement}
+        ogImage={study.image}
+        jsonLd={[articleJsonLd, breadcrumbJsonLd] as unknown as object}
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO */}

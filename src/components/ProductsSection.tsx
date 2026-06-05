@@ -19,19 +19,14 @@ const ProductsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(2);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
   const { t } = useLanguage();
 
   const products: Product[] = (t.productsSection?.products || [
-    { name: 'NEXUS PRO', subtitle: 'Indoor LED Display', description: 'Ultra-fine pitch LED panel for premium indoor installations with stunning color accuracy and seamless splicing technology.', specs: ['P1.2-P2.5 Pitch', '3840Hz Refresh', '5000:1 Contrast'] },
-    { name: 'CURVE X', subtitle: 'Flexible LED Screen', description: 'Revolutionary flexible LED technology for immersive curved and cylindrical displays that captivate audiences.', specs: ['360° Flexible', 'Seamless Curve', 'Modular Design'] },
-    { name: 'ALL-IN-ONE', subtitle: 'Smart LED Display', description: 'Complete meeting room solution with integrated control system, touch capability, and mobile stand.', specs: ['135"-216" Sizes', 'Touch Ready', 'Wireless Cast'] },
-    { name: 'STAGE PRO', subtitle: 'Rental LED Panel', description: 'Professional event-grade LED modules with quick-lock system for rapid deployment and touring.', specs: ['500x500mm', 'Quick Lock', 'IP65 Rated'] },
-    { name: 'CYLINDER 360', subtitle: 'Column LED Display', description: 'Eye-catching cylindrical LED columns for retail, exhibitions, and architectural installations.', specs: ['360° Viewing', 'Custom Sizes', 'Interactive Ready'] },
-  ]).map((p: any, i: number) => ({
+    { name: 'LED SCREEN', subtitle: 'High-Quality Display', description: 'Premium LED display screens engineered for stunning visuals in any environment, from corporate to entertainment.', specs: ['4K Resolution', '3840Hz Refresh', '5000:1 Contrast'] },
+    { name: 'PUCK LIGHTS', subtitle: 'Compact Lighting', description: 'Versatile puck lighting solutions offering precise illumination for architectural and decorative applications.', specs: ['Dimmable', 'RGB+W', 'Surface Mount'] },
+    { name: 'WASH LIGHT', subtitle: 'Professional Wash', description: 'Powerful wash lighting fixtures designed for stage productions, events, and architectural highlighting.', specs: ['Wide Beam', 'DMX Control', 'IP65 Rated'] },
+    { name: 'MOVING HEADS', subtitle: 'Dynamic Fixtures', description: 'Intelligent moving head fixtures that bring dynamic movement and color to live events and installations.', specs: ['Pan/Tilt', 'Gobo Patterns', 'DMX512'] },
+  ]).map((p: Product, i: number) => ({
     id: i + 1,
     name: p.name,
     subtitle: p.subtitle,
@@ -39,6 +34,11 @@ const ProductsSection = () => {
     image: `/images/product-${i + 1}.png`,
     specs: p.specs,
   }));
+
+  const [activeIndex, setActiveIndex] = useState(Math.min(2, products.length - 1));
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -114,6 +114,10 @@ const ProductsSection = () => {
   };
 
   const activeProduct = products[activeIndex];
+
+  if (!activeProduct) {
+    return null;
+  }
 
   return (
     <section

@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchOverlay from "@/components/SearchOverlay";
@@ -36,6 +37,10 @@ const AboutManufacturing = () => {
 
   return (
     <main className="min-h-screen bg-black font-sans selection:bg-primary/20 text-foreground">
+      <SEOHead
+        title="LED Display Manufacturing"
+        description="Explore VexaLED's state-of-the-art LED display manufacturing facilities. ISO 9001 certified production with full component traceability and rigorous quality testing."
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO */}

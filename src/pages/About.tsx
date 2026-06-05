@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ConfigurationCTA from "@/components/ConfigurationCTA";
@@ -29,6 +30,10 @@ const About = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title={page.title}
+        description={page.longDescription ?? `Learn about VexaLED — ${page.title}. Discover our engineering expertise and commitment to world-class LED display solutions.`}
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* Hero */}

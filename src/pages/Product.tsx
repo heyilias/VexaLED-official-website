@@ -1,28 +1,300 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Play, Pause, Volume2, VolumeX, Maximize } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
+import { useContactForm } from "@/hooks/useContactForm";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchOverlay from "@/components/SearchOverlay";
-import { Home, ArrowRight, Download, Send, Award, ChevronRight, MapPin, Zap, Shield, Cpu } from "lucide-react";
+import {
+  ArrowRight,
+  Download,
+  Send,
+  Award,
+  ChevronRight,
+  Check,
+  Loader2,
+  ArrowUpRight,
+  Zap,
+  Monitor,
+  Layers,
+  Maximize2,
+  Eye,
+  Clock,
+  Cpu,
+} from "lucide-react";
 import { getProductDetail } from "@/data/productDetailData";
+import VXLedPosterHero from "@/components/VXLedPosterHero";
+import ProductOverview from "@/components/ProductOverview";
+import ledPosterFront from "@/assets/products/led-screen/poster/front.png";
+import ledPosterBack from "@/assets/products/led-screen/poster/back.png";
+import ledPosterDetails from "@/assets/products/led-screen/poster/details.png";
+import ledPosterOther from "@/assets/products/led-screen/poster/other1.png";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 40 },
+// Application images
+import shoppingImg from "@/assets/products/led-screen/poster/Shopping.png";
+import exhibitionImg from "@/assets/products/led-screen/poster/Exhibition.png";
+import hotelImg from "@/assets/products/led-screen/poster/Hotel.png";
+import productVideo from "@/assets/products/led-screen/poster/video.webm";
+
+// Premium Animation Configurations
+const PREMIUM_EASE = [0.25, 0.1, 0.25, 1];
+const PREMIUM_DURATION = 1;
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 80 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: PREMIUM_DURATION, ease: PREMIUM_EASE },
 };
-const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.12 } });
 
+const fadeIn = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true },
+  transition: { duration: PREMIUM_DURATION, ease: PREMIUM_EASE },
+};
+
+const scaleIn = {
+  initial: { opacity: 0, scale: 0.95 },
+  whileInView: { opacity: 1, scale: 1 },
+  viewport: { once: true },
+  transition: { duration: PREMIUM_DURATION, ease: PREMIUM_EASE },
+};
+
+// Section Header Component
+interface SectionHeaderProps {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  align?: "left" | "center";
+}
+
+const SectionHeader = ({ eyebrow, title, description, align = "center" }: SectionHeaderProps) => (
+  <div className={`${align === "center" ? "text-center" : ""} mb-20 md:mb-24`}>
+    {eyebrow && (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: PREMIUM_EASE }}
+        className={`mb-6 flex items-center gap-4 ${align === "center" ? "justify-center" : ""}`}
+      >
+        <div className="h-px w-12 bg-[#CCFF00]" />
+        <span className="text-xs font-medium uppercase tracking-[0.3em] text-white/40">
+          {eyebrow}
+        </span>
+        <div className="h-px w-12 bg-[#CCFF00]" />
+      </motion.div>
+    )}
+    <motion.h2
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 0.1, ease: PREMIUM_EASE }}
+      className="font-display text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
+    >
+      {title}
+    </motion.h2>
+    {description && (
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2, ease: PREMIUM_EASE }}
+        className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/50 md:text-xl"
+      >
+        {description}
+      </motion.p>
+    )}
+  </div>
+);
+
+// Application Card Component
+interface ApplicationCardProps {
+  image: string;
+  title: string;
+  index: number;
+}
+
+const ApplicationCard = ({ image, title, index }: ApplicationCardProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 60 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8, delay: index * 0.15, ease: PREMIUM_EASE }}
+    className="group relative overflow-hidden rounded-xl"
+  >
+    <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 opacity-60" />
+      <img
+        src={image}
+        alt={title}
+        className="h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+      />
+    </div>
+    <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+      <h3 className="text-xl font-semibold text-white">{title}</h3>
+    </div>
+  </motion.div>
+);
+
+// Feature Card Component
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  index: number;
+}
+
+const FeatureCard = ({ icon, title, description, index }: FeatureCardProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6, delay: index * 0.1, ease: PREMIUM_EASE }}
+    className="group"
+  >
+    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] transition-colors group-hover:border-[#CCFF00]/30 group-hover:bg-[#CCFF00]/5">
+      {icon}
+    </div>
+    <h3 className="mb-3 text-lg font-semibold text-white">{title}</h3>
+    <p className="text-base leading-relaxed text-white/50">{description}</p>
+  </motion.div>
+);
+
+// Spec Row Component
+interface SpecRowProps {
+  label: string;
+  value: string;
+}
+
+const SpecRow = ({ label, value }: SpecRowProps) => (
+  <div className="flex items-center justify-between py-4 border-b border-white/[0.04] last:border-0">
+    <span className="text-base text-white/40">{label}</span>
+    <span className="text-base font-medium text-white">{value}</span>
+  </div>
+);
+
+// Variant Card Component
+interface VariantCardProps {
+  name: string;
+  pixelPitch: string;
+  brightness: string;
+  cabinetSize: string;
+  weight: string;
+  index: number;
+  isActive?: boolean;
+  onClick?: () => void;
+}
+
+const VariantCard = ({
+  name,
+  pixelPitch,
+  brightness,
+  cabinetSize,
+  weight,
+  index,
+  isActive,
+  onClick,
+}: VariantCardProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: index * 0.1, ease: PREMIUM_EASE }}
+    onClick={onClick}
+    className={`cursor-pointer rounded-xl border p-6 transition-all duration-300 ${
+      isActive
+        ? "border-[#CCFF00]/50 bg-[#CCFF00]/[0.03]"
+        : "border-white/[0.06] bg-transparent hover:border-white/20"
+    }`}
+  >
+    <div className="mb-4 flex items-center justify-between">
+      <h4 className={`font-semibold ${isActive ? "text-[#CCFF00]" : "text-white"}`}>
+        {name}
+      </h4>
+      {isActive && (
+        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#CCFF00]">
+          <Check className="h-3 w-3 text-black" />
+        </div>
+      )}
+    </div>
+    <div className="space-y-2 text-sm text-white/60">
+      <div className="flex justify-between">
+        <span className="text-white/40">Pixel Pitch</span>
+        <span>{pixelPitch}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-white/40">Brightness</span>
+        <span>{brightness}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-white/40">Cabinet</span>
+        <span>{cabinetSize}</span>
+      </div>
+      <div className="flex justify-between">
+        <span className="text-white/40">Weight</span>
+        <span>{weight}</span>
+      </div>
+    </div>
+  </motion.div>
+);
+
+// Download Card Component
+interface DownloadCardProps {
+  title: string;
+  type: string;
+  size: string;
+  index: number;
+}
+
+const DownloadCard = ({ title, type, size, index }: DownloadCardProps) => (
+  <motion.a
+    href="#"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: index * 0.1, ease: PREMIUM_EASE }}
+    className="group flex items-center gap-4 rounded-xl border border-white/[0.06] p-5 transition-all duration-300 hover:border-white/20"
+  >
+    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] transition-colors group-hover:border-[#CCFF00]/30 group-hover:bg-[#CCFF00]/5">
+      <Download className="h-4 w-4 text-white/60 transition-colors group-hover:text-[#CCFF00]" />
+    </div>
+    <div className="min-w-0 flex-1">
+      <p className="truncate font-medium text-white transition-colors group-hover:text-[#CCFF00]">
+        {title}
+      </p>
+      <p className="text-xs text-white/40">
+        {type} · {size}
+      </p>
+    </div>
+  </motion.a>
+);
+
+// Main Product Component
 const Product = () => {
   const { category, slug } = useParams<{ category: string; slug: string }>();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "" });
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    message: "",
+  });
+  const [activeVariant, setActiveVariant] = useState(0);
+  const contactForm = useContactForm();
 
   const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
 
@@ -33,232 +305,518 @@ const Product = () => {
   const product = getProductDetail(slug, category);
   if (!product) return <Navigate to="/" replace />;
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormState((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => setFormSubmitted(false), 4000);
-    setFormData({ name: "", email: "", company: "", message: "" });
+    await contactForm.mutateAsync({
+      name: formState.name,
+      email: formState.email,
+      company: formState.company,
+      phone: formState.phone,
+      message: formState.message,
+    });
+    if (!contactForm.isError) {
+      setFormState({ name: "", email: "", company: "", phone: "", message: "" });
+    }
+  };
+
+  const featureIcons = [
+    <Monitor className="h-5 w-5 text-[#CCFF00]" key="monitor" />,
+    <Layers className="h-5 w-5 text-[#CCFF00]" key="layers" />,
+    <Maximize2 className="h-5 w-5 text-[#CCFF00]" key="maximize" />,
+  ];
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "description": product.tagline,
+    "brand": { "@type": "Brand", "name": "VexaLED" },
+    "category": product.category,
+    "image": product.heroImage,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://vexaled.com" },
+      { "@type": "ListItem", "position": 2, "name": "Products", "item": `https://vexaled.com/products/${product.category}` },
+      { "@type": "ListItem", "position": 3, "name": product.title, "item": `https://vexaled.com/products/${product.category}/${product.slug}` },
+    ],
   };
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen bg-black">
+      <SEOHead
+        title={product.title}
+        description={product.tagline}
+        ogImage={product.heroImage}
+        jsonLd={[productJsonLd, breadcrumbJsonLd] as unknown as object}
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
-      {/* HERO */}
-      <section ref={heroRef} className="relative h-screen min-h-[600px] max-h-[900px] overflow-hidden bg-black">
-        <motion.div className="absolute inset-0" style={{ opacity: heroOpacity, scale: heroScale }}>
-          <img src={product.heroImage} alt={product.title} className="h-full w-full object-cover opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/70" />
-        </motion.div>
-        <div className="container-wide relative mx-auto flex h-full flex-col justify-end px-5 pb-20 md:px-8 md:pb-24 lg:px-10">
-          <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-8 flex items-center gap-2.5 text-xs uppercase tracking-[0.15em] text-white/40">
-            <Link to="/" className="flex items-center gap-2 transition-colors hover:text-white/70"><Home className="h-3.5 w-3.5" /><span>Home</span></Link>
-            <ChevronRight className="h-3 w-3" />
-            <Link to={`/products/${category}`} className="capitalize transition-colors hover:text-white/70">{category}</Link>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-white/60">{product.title}</span>
-          </motion.nav>
-          <motion.h1 initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} className="mb-6 font-display text-5xl font-bold uppercase tracking-[0.15em] text-white md:text-6xl lg:text-7xl xl:text-8xl">
-            {product.title}
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="max-w-2xl text-base font-light leading-relaxed text-white/70 md:text-lg lg:text-xl">
-            {product.tagline}
-          </motion.p>
-        </div>
-      </section>
+      {/* HERO SECTION - Custom hero for VX-LED Poster */}
+      {product.slug === 'vx-led-poster' || product.slug === 'led-screen' ? (
+        <VXLedPosterHero
+          onExploreClick={() => {
+            document.getElementById('product-overview')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          onWatchVideoClick={() => {
+            document.getElementById('product-video')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
+      ) : (
+        /* Default Hero Section for other products */
+        <section
+          ref={heroRef}
+          className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black"
+        >
+          {/* Background gradient */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-neutral-950" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#CCFF00]/[0.03] blur-[150px]" />
+          </div>
 
-      {/* OVERVIEW */}
-      <section className="relative bg-background py-20 md:py-28 lg:py-32">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
-            <motion.div {...fadeUp}>
-              <span className="mb-5 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Product Overview</span>
-              <h2 className="mb-6 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">{product.overviewTitle}</h2>
-              <p className="text-lg leading-[1.8] text-muted-foreground">{product.overviewDescription}</p>
+          {/* Hero Content */}
+          <motion.div
+            className="relative z-10 w-full"
+            style={{ opacity: heroOpacity, scale: heroScale }}
+          >
+            {/* Breadcrumb */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="absolute top-8 left-8 flex items-center gap-2 text-xs text-white/30"
+            >
+              <Link to="/" className="hover:text-white/60 transition-colors">
+                Home
+              </Link>
+              <ChevronRight className="h-3 w-3" />
+              <Link to={`/products/${category}`} className="capitalize hover:text-white/60 transition-colors">
+                {category}
+              </Link>
+              <ChevronRight className="h-3 w-3" />
+              <span className="text-white/60">{product.title}</span>
             </motion.div>
-            <motion.div {...fadeUp} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/20">
-              <img src={product.overviewImage} alt={`${product.title} detail`} className="h-full w-full object-cover" />
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* APPLICATIONS */}
-      <section className="relative bg-muted/20 py-20 md:py-28">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-16 text-center">
-            <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Application Scenarios</span>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">Where It Shines</h2>
-          </motion.div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {product.applications.map((app, i) => (
-              <motion.div key={i} {...stagger(i)} className="group relative aspect-[3/2] overflow-hidden rounded-xl border border-border/20 bg-card">
-                <img src={app.image} alt={app.label} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6"><h3 className="text-lg font-semibold text-white">{app.label}</h3></div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* VALUE PROPS */}
-      <section className="relative bg-background py-20 md:py-28">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-16 text-center">
-            <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Core Advantages</span>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">Why {product.title}</h2>
-          </motion.div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {product.valueProps.map((vp, i) => {
-              const icons = [Shield, Zap, Cpu];
-              const Icon = icons[i % icons.length];
-              return (
-                <motion.div key={i} {...stagger(i)} className="group overflow-hidden rounded-2xl border border-border/20 bg-card/50 p-8 transition-colors hover:border-primary/30">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10"><Icon className="h-7 w-7 text-primary" strokeWidth={1.5} /></div>
-                  <h3 className="mb-3 text-xl font-bold text-foreground">{vp.title}</h3>
-                  <p className="leading-relaxed text-muted-foreground">{vp.text}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section className="relative bg-muted/20 py-20 md:py-28 lg:py-32">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-16 text-center">
-            <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Technology</span>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">Technical Excellence</h2>
-          </motion.div>
-          <div className="space-y-24 md:space-y-32">
-            {product.features.map((feature, i) => {
-              const isReversed = i % 2 === 1;
-              return (
-                <motion.div key={i} {...fadeUp} className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-                  <div className={`relative aspect-[16/10] overflow-hidden rounded-2xl border border-border/20 ${isReversed ? "lg:order-2" : ""}`}>
-                    <img src={feature.image} alt={feature.title} className="h-full w-full object-cover" />
-                  </div>
-                  <div className={isReversed ? "lg:order-1" : ""}>
-                    <h3 className="mb-5 text-2xl font-bold tracking-tight text-foreground md:text-3xl">{feature.title}</h3>
-                    <p className="text-lg leading-[1.8] text-muted-foreground">{feature.text}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CERTIFICATIONS */}
-      <section className="relative bg-background py-20 md:py-28">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-14 text-center">
-            <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Certifications</span>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">Compliance & Standards</h2>
-          </motion.div>
-          <motion.div {...fadeUp} className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
-            {product.certifications.map((cert, i) => (
-              <div key={i} className="flex min-w-[140px] flex-col items-center gap-3 rounded-xl border border-border/20 bg-card/40 px-8 py-6 text-center transition-colors hover:border-primary/20">
-                <Award className="h-7 w-7 text-primary" strokeWidth={1.5} />
-                <span className="text-sm font-bold text-foreground">{cert.label}</span>
-                <span className="text-xs text-muted-foreground">{cert.description}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* VARIANTS TABLE */}
-      {product.variants.length > 0 && (
-        <section className="relative bg-muted/20 py-20 md:py-28">
-          <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-            <motion.div {...fadeUp} className="mb-14 text-center">
-              <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Configuration</span>
-              <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">Available Variants</h2>
-            </motion.div>
-            <motion.div {...fadeUp} className="overflow-hidden rounded-xl border border-border/20 bg-card">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead><tr className="border-b border-border/20 bg-muted/30">
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Model</th>
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Pixel Pitch</th>
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Brightness</th>
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Cabinet Size</th>
-                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Weight</th>
-                  </tr></thead>
-                  <tbody>
-                    {product.variants.map((v, i) => (
-                      <tr key={i} className="border-b border-border/10 transition-colors last:border-0 hover:bg-muted/20">
-                        <td className="px-6 py-4 font-semibold text-foreground">{v.name}</td>
-                        <td className="px-6 py-4 text-muted-foreground">{v.pixelPitch}</td>
-                        <td className="px-6 py-4 text-muted-foreground">{v.brightness}</td>
-                        <td className="px-6 py-4 text-muted-foreground">{v.cabinetSize}</td>
-                        <td className="px-6 py-4 text-muted-foreground">{v.weight}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            {/* Product Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: PREMIUM_EASE }}
+              className="flex justify-center px-4"
+            >
+              <div className="relative">
+                <img
+                  src={product.heroImage}
+                  alt={product.title}
+                  className="h-[60vh] md:h-[65vh] w-auto object-contain drop-shadow-[0_0_60px_rgba(204,255,0,0.15)]"
+                />
               </div>
             </motion.div>
+
+            {/* Title */}
+            <div className="text-center px-6 mt-8">
+              <motion.h1
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.5, ease: PREMIUM_EASE }}
+                className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white"
+              >
+                {product.title}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7, ease: PREMIUM_EASE }}
+                className="mt-6 text-lg md:text-xl text-white/50 max-w-2xl mx-auto"
+              >
+                {product.tagline}
+              </motion.p>
+            </div>
+          </motion.div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className="absolute bottom-12 left-1/2 -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-3"
+            >
+              <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">Scroll</span>
+              <div className="h-10 w-px bg-gradient-to-b from-white/40 to-transparent" />
+            </motion.div>
+          </motion.div>
+        </section>
+      )}
+
+      {/* PRODUCT OVERVIEW - Multiple Views Gallery */}
+      {(product.slug === 'vx-led-poster' || product.slug === 'led-screen') && (
+        <ProductOverview
+          views={[
+            { id: "front", label: "Front View", image: ledPosterFront },
+            { id: "back", label: "Back View", image: ledPosterBack },
+            { id: "details", label: "Detail View", image: ledPosterDetails },
+            { id: "other", label: "", image: ledPosterOther },
+          ]}
+          specs={[
+            { label: "Display Size", value: "640 × 1920 mm" },
+            { label: "Pixel Pitch", value: "P1.25 - P3.91" },
+            { label: "Brightness", value: "600-800 nits" },
+            { label: "Refresh Rate", value: "3840 Hz" },
+            { label: "Weight", value: "35.5 kg" },
+            { label: "Thickness", value: "62 mm (folded)" },
+          ]}
+        />
+      )}
+
+      {/* APPLICATIONS / WHERE IT SHINES */}
+      {(product.slug === 'vx-led-poster' || product.slug === 'led-screen') ? (
+        <section className="py-24 md:py-32 bg-neutral-950">
+          <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+            <SectionHeader
+              eyebrow="Applications"
+              title="Where It Shines"
+              description="Discover how the VX-LED Poster transforms spaces across diverse industries and applications."
+            />
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { image: shoppingImg, title: "Retail & Shopping" },
+                { image: exhibitionImg, title: "Events & Exhibitions" },
+                { image: hotelImg, title: "Hotels & Restaurant Lobbies" },
+              ].map((app, i) => (
+                <ApplicationCard key={i} image={app.image} title={app.title} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="py-32 md:py-40 bg-neutral-950">
+          <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+            <SectionHeader
+              eyebrow="Applications"
+              title="Where It Shines"
+              description={`Discover how the ${product.title} transforms spaces across diverse industries and applications.`}
+            />
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {product.applications.map((app, i) => (
+                <ApplicationCard key={i} image={app.image} title={app.label} index={i} />
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-      {/* SPECS */}
-      <section className="relative bg-background py-20 md:py-28">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-14 text-center">
-            <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Specifications</span>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">Product Parameters</h2>
-          </motion.div>
-          <motion.div {...fadeUp} className="mx-auto max-w-4xl">
-            <div className="overflow-hidden rounded-xl border border-border/20 bg-card/30">
-              {product.parameters.map((param, i) => (
-                <div key={i} className={`flex items-center justify-between border-b border-border/10 px-6 py-5 last:border-0 ${i % 2 === 0 ? "bg-muted/10" : "bg-transparent"}`}>
-                  <span className="text-sm font-medium text-muted-foreground">{param.label}</span>
-                  <span className="text-sm font-semibold text-foreground">{param.value}</span>
+      {/* PRODUCT VIDEO SECTION */}
+      {(product.slug === 'vx-led-poster' || product.slug === 'led-screen') && (
+        <section className="relative bg-black py-24 lg:py-32">
+          <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: PREMIUM_EASE }}
+              className="mb-12 text-center"
+            >
+              <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.3em] text-[#CCFF00]">
+                Product Demo
+              </span>
+              <h2 className="mb-4 font-display text-3xl font-bold text-white md:text-4xl">
+                See It In Action
+              </h2>
+              <p className="mx-auto max-w-xl text-base text-white/50">
+                Watch how the VX-LED Poster transforms any space with stunning visuals.
+              </p>
+            </motion.div>
+
+            <div className="relative rounded-2xl bg-neutral-900">
+              <video
+                ref={videoRef}
+                src={productVideo}
+                controls
+                playsInline
+                preload="none"
+                className="w-full aspect-video rounded-2xl"
+                onPlay={() => setVideoStarted(true)}
+              >
+                Your browser does not support the video tag.
+              </video>
+              {!videoStarted && (
+                <div
+                  className="absolute inset-0 cursor-pointer"
+                  onClick={() => { videoRef.current?.play(); }}
+                >
+                  <img src={ledPosterFront} alt="" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                      <Play className="h-7 w-7 fill-white text-white ml-1" />
+                    </div>
+                  </div>
                 </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CORE FEATURES GRID */}
+      <section className="py-32 md:py-40 bg-black">
+        <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+          <SectionHeader eyebrow="Features" title="Engineered for Excellence" />
+
+          <div className="grid md:grid-cols-3 gap-12 md:gap-16">
+            {product.valueProps.map((vp, i) => (
+              <FeatureCard
+                key={i}
+                icon={featureIcons[i % featureIcons.length]}
+                title={vp.title}
+                description={vp.text}
+                index={i}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DETAILED FEATURES - ALTERNATING */}
+      <section className="py-32 md:py-40 bg-neutral-950">
+        <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+          <div className="space-y-40 md:space-y-56">
+            {product.features.map((feature, i) => {
+              const isReversed = i % 2 === 1;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 80 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1, ease: PREMIUM_EASE }}
+                  className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                >
+                  {/* Image */}
+                  <div className={isReversed ? "lg:order-2" : ""}>
+                    <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-neutral-900">
+                      <span className="absolute top-4 left-4 z-10 text-6xl md:text-7xl font-bold text-white/10">
+                        0{i + 1}
+                      </span>
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className={isReversed ? "lg:order-1" : ""}>
+                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                      {feature.title}
+                    </h3>
+                    <p className="text-lg leading-relaxed text-white/50">
+                      {feature.text}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* PRODUCT VARIANTS */}
+      {product.variants.length > 0 && (
+        <section className="py-32 md:py-40 bg-black">
+          <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+            <SectionHeader
+              eyebrow="Configuration"
+              title="Choose Your Model"
+              description="Multiple pixel pitch options to suit various viewing distances and application requirements."
+            />
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {product.variants.map((variant, i) => (
+                <VariantCard
+                  key={i}
+                  {...variant}
+                  index={i}
+                  isActive={activeVariant === i}
+                  onClick={() => setActiveVariant(i)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* TECHNICAL SPECIFICATIONS */}
+      <section className="py-32 md:py-40 bg-neutral-950">
+        <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+          <SectionHeader eyebrow="Specifications" title="Technical Parameters" />
+
+          <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+            <div className="rounded-xl border border-white/[0.06] p-8 md:p-10">
+              {product.parameters.map((param, i) => (
+                <SpecRow key={i} label={param.label} value={param.value} />
               ))}
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* INQUIRY */}
-      <section className="relative bg-muted/20 py-20 md:py-28">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <div className="mx-auto max-w-2xl">
-            <motion.div {...fadeUp} className="mb-12 text-center">
-              <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Get in Touch</span>
-              <h2 className="mb-5 font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">Request Information</h2>
-              <p className="text-lg leading-relaxed text-muted-foreground">Interested in {product.title}? Send us your project details.</p>
-            </motion.div>
-            <motion.form {...fadeUp} onSubmit={handleFormSubmit} className="space-y-6">
-              <div className="grid gap-6 sm:grid-cols-2">
+      {/* CERTIFICATIONS */}
+      <section className="py-24 md:py-32 bg-black">
+        <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+          <motion.div {...fadeInUp} className="text-center mb-16">
+            <span className="text-xs font-medium uppercase tracking-[0.3em] text-white/40">Certifications</span>
+            <h2 className="mt-4 font-display text-3xl md:text-4xl font-bold text-white">
+              Compliance & Standards
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, staggerChildren: 0.1 }}
+            className="flex flex-wrap justify-center gap-6"
+          >
+            {product.certifications.map((cert, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="flex items-center gap-3 px-6 py-4 rounded-xl border border-white/[0.06]"
+              >
+                <Award className="h-5 w-5 text-[#CCFF00]" />
                 <div>
-                  <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-foreground">Full Name</label>
-                  <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full rounded-lg border border-border/40 bg-background px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Your name" />
+                  <div className="font-semibold text-white">{cert.label}</div>
+                  <div className="text-xs text-white/40">{cert.description}</div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CONTACT FORM */}
+      <section className="py-32 md:py-40 bg-neutral-950">
+        <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+          <div className="max-w-2xl mx-auto">
+            <SectionHeader
+              eyebrow="Contact"
+              title="Request Information"
+              description={`Interested in the ${product.title}? Our team is ready to help you find the perfect solution.`}
+            />
+
+            <motion.form
+              {...fadeIn}
+              onSubmit={handleFormSubmit}
+              className="space-y-6"
+            >
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="contact-name" className="block text-sm text-white/60 mb-2">Name *</label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    required
+                    value={formState.name}
+                    onChange={handleFormChange}
+                    className="w-full rounded-lg border border-white/[0.08] bg-black/50 px-4 py-4 text-white placeholder:text-white/30 focus:border-[#CCFF00]/30 focus:outline-none transition-colors"
+                    placeholder="Your name"
+                  />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-foreground">Email</label>
-                  <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full rounded-lg border border-border/40 bg-background px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="name@company.com" />
+                  <label htmlFor="contact-email" className="block text-sm text-white/60 mb-2">Email *</label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    required
+                    value={formState.email}
+                    onChange={handleFormChange}
+                    className="w-full rounded-lg border border-white/[0.08] bg-black/50 px-4 py-4 text-white placeholder:text-white/30 focus:border-[#CCFF00]/30 focus:outline-none transition-colors"
+                    placeholder="you@company.com"
+                  />
                 </div>
               </div>
-              <div>
-                <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-foreground">Company</label>
-                <input type="text" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} className="w-full rounded-lg border border-border/40 bg-background px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Company name (optional)" />
+
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="contact-company" className="block text-sm text-white/60 mb-2">Company</label>
+                  <input
+                    id="contact-company"
+                    type="text"
+                    name="company"
+                    value={formState.company}
+                    onChange={handleFormChange}
+                    className="w-full rounded-lg border border-white/[0.08] bg-black/50 px-4 py-4 text-white placeholder:text-white/30 focus:border-[#CCFF00]/30 focus:outline-none transition-colors"
+                    placeholder="Company name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-phone" className="block text-sm text-white/60 mb-2">Phone</label>
+                  <input
+                    id="contact-phone"
+                    type="tel"
+                    name="phone"
+                    value={formState.phone}
+                    onChange={handleFormChange}
+                    className="w-full rounded-lg border border-white/[0.08] bg-black/50 px-4 py-4 text-white placeholder:text-white/30 focus:border-[#CCFF00]/30 focus:outline-none transition-colors"
+                    placeholder="+1 (555) 000-0000"
+                  />
+                </div>
               </div>
+
               <div>
-                <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-foreground">Project Details</label>
-                <textarea rows={5} required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full resize-none rounded-lg border border-border/40 bg-background px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Tell us about your installation requirements..." />
+                <label htmlFor="contact-message" className="block text-sm text-white/60 mb-2">Message *</label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  required
+                  rows={5}
+                  value={formState.message}
+                  onChange={handleFormChange}
+                  className="w-full resize-none rounded-lg border border-white/[0.08] bg-black/50 px-4 py-4 text-white placeholder:text-white/30 focus:border-[#CCFF00]/30 focus:outline-none transition-colors"
+                  placeholder="Tell us about your project..."
+                />
               </div>
-              <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:bg-primary/90">
-                <Send className="h-4 w-4" /> Send Inquiry
+
+              <button
+                type="submit"
+                disabled={contactForm.isPending}
+                className="w-full rounded-lg bg-[#CCFF00] px-8 py-4 text-base font-semibold text-black transition-all hover:bg-[#CCFF00]/90 disabled:opacity-70"
+              >
+                {contactForm.isPending ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Sending...
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <Send className="h-4 w-4" />
+                    Send Inquiry
+                  </span>
+                )}
               </button>
-              {formSubmitted && <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-sm font-medium text-primary">Thank you! We'll be in touch shortly.</motion.p>}
             </motion.form>
           </div>
         </div>
@@ -266,21 +824,64 @@ const Product = () => {
 
       {/* DOWNLOADS */}
       {product.relatedDownloads.length > 0 && (
-        <section className="relative bg-background py-20 md:py-28">
-          <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-            <motion.div {...fadeUp} className="mb-12">
-              <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Resources</span>
-              <h3 className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">Technical Downloads</h3>
+        <section className="py-24 md:py-32 bg-black">
+          <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+            <motion.div {...fadeInUp} className="mb-12">
+              <span className="text-xs font-medium uppercase tracking-[0.3em] text-white/40">Resources</span>
+              <h2 className="mt-4 font-display text-3xl md:text-4xl font-bold text-white">
+                Technical Downloads
+              </h2>
             </motion.div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {product.relatedDownloads.map((dl, i) => (
-                <motion.a key={i} href="#" {...stagger(i)} className="flex items-center gap-5 rounded-xl border border-border/20 bg-card p-6 transition-colors hover:border-primary/30 hover:bg-card/80">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10"><Download className="h-6 w-6 text-primary" /></div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-semibold text-foreground">{dl.title}</p>
-                    <p className="text-xs text-muted-foreground">{dl.type} · {dl.size}</p>
-                  </div>
-                </motion.a>
+                <DownloadCard key={i} {...dl} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* RELATED PRODUCTS */}
+      {product.relatedProducts.length > 0 && (
+        <section className="py-24 md:py-32 bg-neutral-950">
+          <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+            <motion.div {...fadeInUp} className="mb-12 flex items-end justify-between">
+              <div>
+                <span className="text-xs font-medium uppercase tracking-[0.3em] text-white/40">
+                  Related
+                </span>
+                <h2 className="mt-4 font-display text-3xl md:text-4xl font-bold text-white">
+                  You May Also Like
+                </h2>
+              </div>
+            </motion.div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {product.relatedProducts.map((rp, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                >
+                  <Link
+                    to={`/products/${rp.category}/${rp.slug}`}
+                    className="group block"
+                  >
+                    <div className="aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900 mb-4">
+                      <img
+                        src={rp.image}
+                        alt={rp.name}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <h3 className="font-semibold text-white group-hover:text-[#CCFF00] transition-colors">
+                      {rp.name}
+                    </h3>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -288,7 +889,9 @@ const Product = () => {
       )}
 
       <Footer />
-      <AnimatePresence>{isSearchOpen && <SearchOverlay isOpen={isSearchOpen} onClose={closeSearch} />}</AnimatePresence>
+      <AnimatePresence>
+        {isSearchOpen && <SearchOverlay isOpen={isSearchOpen} onClose={closeSearch} />}
+      </AnimatePresence>
     </main>
   );
 };

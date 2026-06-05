@@ -23,108 +23,44 @@ export const navItems: NavItem[] = [
       {
         title: 'Industries',
         items: [
-          { 
-            title: 'Sports & Arenas', 
-            description: 'Stadium-grade LED solutions for immersive fan experiences', 
-            href: '/market/sports',
-            image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Advertising & DOOH', 
-            description: 'High-impact digital out-of-home displays', 
-            href: '/market/advertising',
-            image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Events & Staging', 
-            description: 'Touring and rental displays for live productions', 
-            href: '/market/events',
-            image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Virtual Production', 
-            description: 'XR-ready LED volumes for film and broadcast', 
-            href: '/market/virtual-production',
-            image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Corporate & Control Rooms', 
-            description: 'Mission-critical visualization solutions', 
-            href: '/market/corporate',
-            image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop'
-          },
+          { title: 'Sports & Arenas', description: 'Stadium-grade LED solutions for immersive fan experiences', href: '/market/sports', image: '/src/assets/products/navbar/sports.jpg' },
+          { title: 'Advertising & DOOH', description: 'High-impact digital out-of-home displays', href: '/market/advertising', image: '/src/assets/products/navbar/advertising.jpg' },
+          { title: 'Events & Staging', description: 'Touring and rental displays for live productions', href: '/market/events', image: '/src/assets/products/navbar/events.jpg' },
+          { title: 'Virtual Production', description: 'XR-ready LED volumes for film and broadcast', href: '/market/virtual-production', image: '/src/assets/products/navbar/virtual-production.jpg' },
+          { title: 'Corporate & Control Rooms', description: 'Mission-critical visualization solutions', href: '/market/corporate', image: '/src/assets/products/navbar/corporate.jpg' },
         ],
       },
     ],
   },
+
   {
     label: 'Products',
     sections: [
       {
-        title: 'LED Display Systems',
+        title: 'LED Displays',
         items: [
-          { 
-            title: 'COB LED Display', 
-            description: 'Next-generation Chip-on-Board technology', 
-            href: '/products/cob',
-            image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Indoor LED Displays', 
-            description: 'Fine-pitch displays for interior applications', 
-            href: '/products/indoor',
-            image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Outdoor LED Displays', 
-            description: 'Weather-resistant high-brightness solutions', 
-            href: '/products/outdoor',
-            image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Rental & Stage Displays', 
-            description: 'Lightweight touring-ready panels', 
-            href: '/products/rental',
-            image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&h=300&fit=crop'
-          },
+          { title: 'LED Poster Display', description: 'Portable digital signage with foldable design', href: '/products/led-screen/vx-led-poster', image: '/src/assets/products/navbar/led-poster.jpg' },
+          { title: 'Folding Screen', description: 'Modular panels for events and video walls', href: '/products/folding-screen', image: '/src/assets/products/navbar/led-screen.jpg' },
         ],
       },
     ],
   },
+  /* HIDDEN - Case Study page temporarily disabled
   {
     label: 'Case Study',
     sections: [
       {
         title: 'Featured Projects',
         items: [
-          { 
-            title: 'Dubai World Expo', 
-            description: 'UAE · Immersive Pavilion', 
-            href: '/case-study/dubai-expo',
-            image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'MSG Sphere Preview', 
-            description: 'Las Vegas · Entertainment Venue', 
-            href: '/case-study/msg-sphere',
-            image: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Shanghai Stadium', 
-            description: 'China · Sports Venue', 
-            href: '/case-study/shanghai-stadium',
-            image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=300&fit=crop'
-          },
-          { 
-            title: 'Berlin Concert Hall', 
-            description: 'Germany · Live Events', 
-            href: '/case-study/berlin-concert',
-            image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=300&fit=crop'
-          },
+          { title: 'Dubai World Expo', description: 'UAE · Immersive Pavilion', href: '/case-study/dubai-expo', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&h=300&fit=crop' },
+          { title: 'MSG Sphere Preview', description: 'Las Vegas · Entertainment Venue', href: '/case-study/msg-sphere', image: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=300&fit=crop' },
+          { title: 'Shanghai Stadium', description: 'China · Sports Venue', href: '/case-study/shanghai-stadium', image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=300&fit=crop' },
+          { title: 'Berlin Concert Hall', description: 'Germany · Live Events', href: '/case-study/berlin-concert', image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=300&fit=crop' },
         ],
       },
     ],
   },
+  */
   {
     label: 'Service & Support',
     sections: [

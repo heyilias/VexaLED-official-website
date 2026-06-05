@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ChevronDown, Home } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchOverlay from "@/components/SearchOverlay";
@@ -77,6 +78,10 @@ const ProductCategory = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title={`${categoryData.name} LED Displays`}
+        description={categoryData.description ?? `Browse VexaLED's ${categoryData.name} LED display range. Professional-grade screens with industry-leading brightness, resolution, and reliability.`}
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO */}
@@ -117,17 +122,47 @@ const ProductCategory = () => {
           </motion.div>
 
           {filteredProducts.length > 0 ? (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {filteredProducts.map((product: Product, index: number) => (
-                <motion.div key={product.id} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + index * 0.06, duration: 0.6 }}>
-                  <Link to={`/products/${category}/${product.slug}`} className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-2xl hover:shadow-primary/5">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                    <div className="relative z-10 mb-2 text-center">
-                      <h3 className="font-display text-lg font-bold tracking-tight text-white transition-colors group-hover:text-primary">{product.name}</h3>
+                <motion.div key={product.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + index * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+                  <Link to={`/products/${category}/${product.slug}`} className="group relative flex flex-col h-full overflow-hidden rounded-xl bg-black border border-white/[0.06] transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_-12px_rgba(212,255,0,0.15)]">
+                    {/* Image Container */}
+                    <div className="relative aspect-square overflow-hidden bg-gradient-to-b from-white/[0.03] to-transparent">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 opacity-60" />
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
+                      />
+                      {/* Floating badge */}
+                      <div className="absolute top-3 left-3 z-20">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-primary">
+                          <span className="h-1 w-1 rounded-full bg-primary animate-pulse" />
+                          {product.pixelPitch === 'fine' ? 'Fine Pitch' : product.pixelPitch === 'standard' ? 'Standard' : 'Coarse'}
+                        </span>
+                      </div>
                     </div>
-                    <div className="relative z-10 aspect-[4/5] w-full overflow-hidden rounded-lg">
-                      <img src={product.image} alt={product.name} className="h-full w-full object-contain object-top transition-transform duration-700 ease-out group-hover:scale-105" />
+
+                    {/* Content */}
+                    <div className="relative flex flex-col flex-1 p-5">
+                      <div className="mb-3">
+                        <h3 className="font-display text-base font-semibold tracking-tight text-white/90 transition-colors group-hover:text-primary mb-1">{product.name}</h3>
+                        <p className="text-[11px] uppercase tracking-wider text-white/30">{product.application}</p>
+                      </div>
+
+                      {/* Specs row */}
+                      <div className="mt-auto pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                        <span className="text-xs text-white/40">View Details</span>
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.05] border border-white/[0.08] transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-black">
+                          <svg className="h-3.5 w-3.5 text-white/60 transition-colors group-hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Hover glow effect */}
+                    <div className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" style={{ boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.05)' }} />
                   </Link>
                 </motion.div>
               ))}

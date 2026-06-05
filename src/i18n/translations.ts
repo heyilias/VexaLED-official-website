@@ -257,12 +257,9 @@ const en: Translations = {
       ],
     },
     products: {
-      sectionTitle: 'LED Display Systems',
+      sectionTitle: 'Products',
       items: [
-        { title: 'COB LED Display', description: 'Next-generation Chip-on-Board technology' },
-        { title: 'Indoor LED Displays', description: 'Fine-pitch displays for interior applications' },
-        { title: 'Outdoor LED Displays', description: 'Weather-resistant high-brightness solutions' },
-        { title: 'Rental & Stage Displays', description: 'Lightweight touring-ready panels' },
+        { title: 'VX-LED Poster', description: 'Die-cast folding poster screen with smart cluster management' },
       ],
     },
     caseStudy: {
@@ -360,11 +357,9 @@ const en: Translations = {
   productCategories: {
     tag: 'Product Lines',
     title: 'Precision-Engineered Solutions',
-    subtitle: 'Premium COB LED display systems engineered for clarity, reliability, and global deployment.',
+    subtitle: 'Professional lighting and display systems engineered for performance and reliability.',
     products: [
-      { title: 'COB Ultra-Fine Display', tag: 'P0.7 – P1.5', description: 'Chip-on-board precision for mission-critical visuals.' },
-      { title: 'Rental & Touring Display', tag: 'Fast Install', description: 'Lightweight modular panels built for live events and staging.' },
-      { title: 'Curved / Creative Display', tag: 'Flexible Geometry', description: 'Seamless curves for immersive architectural and retail experiences.' },
+      { title: 'VX-LED Poster', tag: 'Display', description: 'Die-cast folding poster screen with smart cluster management for retail, advertising, and events.' },
     ],
   },
   ai: {
@@ -482,15 +477,11 @@ const en: Translations = {
   productsSection: {
     tag: 'OUR PRODUCTS',
     title: 'LED Solutions',
-    subtitle: 'Discover our range of cutting-edge LED display technologies',
+    subtitle: 'Discover our range of cutting-edge LED display and lighting technologies',
     learnMore: 'Learn More',
     navHint: 'Use arrow keys or drag to navigate',
     products: [
-      { name: 'NEXUS PRO', subtitle: 'Indoor LED Display', description: 'Ultra-fine pitch LED panel for premium indoor installations with stunning color accuracy.', specs: ['P1.2-P2.5 Pitch', '3840Hz Refresh', '5000:1 Contrast'] },
-      { name: 'CURVE X', subtitle: 'Flexible LED Screen', description: 'Revolutionary flexible LED technology for immersive curved and cylindrical displays.', specs: ['360° Flexible', 'Seamless Curve', 'Modular Design'] },
-      { name: 'ALL-IN-ONE', subtitle: 'Smart LED Display', description: 'Complete meeting room solution with integrated control system and mobile stand.', specs: ['135"-216" Sizes', 'Touch Ready', 'Wireless Cast'] },
-      { name: 'STAGE PRO', subtitle: 'Rental LED Panel', description: 'Professional event-grade LED modules with quick-lock system for rapid deployment.', specs: ['500x500mm', 'Quick Lock', 'IP65 Rated'] },
-      { name: 'CYLINDER 360', subtitle: 'Column LED Display', description: 'Eye-catching cylindrical LED columns for retail, exhibitions, and architectural spaces.', specs: ['360° Viewing', 'Custom Sizes', 'Interactive Ready'] },
+      { name: 'LED POSTER', subtitle: 'Folding Display', description: 'Portable die-cast folding poster screen with smart cluster management for retail, advertising, and events.', specs: ['Foldable Design', 'Smart Control', 'Multiple Pitches'] },
     ],
   },
   contactFooter: {
@@ -546,12 +537,12 @@ const zh: Translations = {
       ],
     },
     products: {
-      sectionTitle: 'LED 显示系统',
+      sectionTitle: '照明系统',
       items: [
-        { title: 'COB LED 显示屏', description: '新一代芯片级封装技术' },
-        { title: '室内 LED 显示屏', description: '适用于室内应用的细间距显示屏' },
-        { title: '户外 LED 显示屏', description: '耐候高亮度解决方案' },
-        { title: 'Rental 舞台显示屏', description: '轻量化巡演面板' },
+        { title: 'LED 屏幕', description: '适用于各种应用的高品质 LED 显示屏' },
+        { title: '冰球灯', description: '紧凑且多功能的冰球照明解决方案' },
+        { title: '染色灯', description: '专业的舞台和建筑染色照明' },
+        { title: '摇头灯', description: '用于现场活动和装置的动态摇头灯具' },
       ],
     },
     caseStudy: {
@@ -649,11 +640,12 @@ const zh: Translations = {
   productCategories: {
     tag: '产品线',
     title: '精密工程解决方案',
-    subtitle: '为清晰度、可靠性和全球部署而设计的高端 COB LED 显示系统。',
+    subtitle: '专业照明和显示系统，专为性能和可靠性而设计。',
     products: [
-      { title: 'COB 超细显示屏', tag: 'P0.7 – P1.5', description: '板上芯片精度，满足关键任务视觉需求。' },
-      { title: 'Rental 巡演显示屏', tag: '快速安装', description: '为现场活动和舞台打造的轻量模块化面板。' },
-      { title: '曲面 / 创意显示屏', tag: '灵活几何', description: '为建筑和零售体验打造的无缝曲面。' },
+      { title: 'LED 屏幕', tag: '显示', description: '适用于各种应用的高质量 LED 显示屏。' },
+      { title: '圆形灯', tag: '照明', description: '紧凑多功能的圆形照明解决方案。' },
+      { title: '染色灯', tag: '舞台', description: '适用于舞台和建筑的专业染色灯。' },
+      { title: '摇头灯', tag: '动态', description: '适用于现场活动和装置的动态摇头灯具。' },
     ],
   },
   ai: {
@@ -771,15 +763,15 @@ const zh: Translations = {
   productsSection: {
     tag: '我们的产品',
     title: 'LED 解决方案',
-    subtitle: '探索我们尖端的 LED 显示技术',
+    subtitle: '探索我们尖端的 LED 显示和照明技术',
     learnMore: '了解更多',
     navHint: '使用方向键或拖动浏览',
     products: [
-      { name: 'NEXUS PRO', subtitle: '室内 LED 显示屏', description: '超精细间距 LED 面板，适用于高端室内安装，色彩精准。', specs: ['P1.2-P2.5 间距', '3840Hz 刷新率', '5000:1 对比度'] },
-      { name: 'CURVE X', subtitle: '柔性 LED 屏', description: '革命性柔性 LED 技术，打造沉浸式曲面和圆柱形显示。', specs: ['360° 柔性', '无缝曲面', '模块化设计'] },
-      { name: 'ALL-IN-ONE', subtitle: '智能 LED 显示屏', description: '集成控制系统和移动支架的完整会议室解决方案。', specs: ['135"-216" 尺寸', '触控就绪', '无线投屏'] },
-      { name: 'STAGE PRO', subtitle: 'Rental LED 面板', description: '专业活动级 LED 模块，快速锁定系统，快速部署。', specs: ['500x500mm', '快速锁定', 'IP65 防护'] },
-      { name: 'CYLINDER 360', subtitle: '柱形 LED 显示屏', description: '引人注目的圆柱形 LED 柱，适用于零售、展览和建筑空间。', specs: ['360° 观看', '定制尺寸', '互动就绪'] },
+      { name: 'LED 屏幕', subtitle: '高品质显示屏', description: '为任何环境（从企业到娱乐场所）打造的优质 LED 显示屏，呈现令人惊叹的视觉效果。', specs: ['4K 分辨率', '3840Hz 刷新率', '5000:1 对比度'] },
+      { name: 'LED 海报屏', subtitle: '折叠显示屏', description: '压铸折叠海报屏，支持智能集群管理，适用于零售、广告和活动场景。', specs: ['可折叠设计', '智能控制', '多间距可选'] },
+      { name: '冰球灯', subtitle: '紧凑型照明', description: '多功能冰球照明解决方案，为建筑和装饰应用提供精确的照明。', specs: ['可调光', 'RGB+W', '表面安装'] },
+      { name: '染色灯', subtitle: '专业染色灯', description: '功能强大的染色灯具，专为舞台制作、活动和建筑高光而设计。', specs: ['宽光束', 'DMX 控制', 'IP65 防护'] },
+      { name: '摇头灯', subtitle: '动态灯具', description: '智能摇头灯具，为现场活动和装置带来动态运动和色彩。', specs: ['水平/垂直旋转', '图案片', 'DMX512'] },
     ],
   },
   contactFooter: {
@@ -835,12 +827,12 @@ const es: Translations = {
       ],
     },
     products: {
-      sectionTitle: 'Sistemas LED',
+      sectionTitle: 'Sistemas de Iluminación',
       items: [
-        { title: 'Pantalla COB LED', description: 'Tecnología Chip-on-Board de nueva generación' },
-        { title: 'Pantallas LED Interior', description: 'Pantallas de paso fino para aplicaciones interiores' },
-        { title: 'Pantallas LED Exterior', description: 'Soluciones de alta luminosidad resistentes al clima' },
-        { title: 'Pantallas Rental y Escenario', description: 'Paneles ligeros listos para giras' },
+        { title: 'Pantalla LED', description: 'Pantallas LED de alta calidad para diversas aplicaciones' },
+        { title: 'Luces Puck', description: 'Soluciones de iluminación puck compactas y versátiles' },
+        { title: 'Luz de Relleno', description: 'Iluminación de relleno profesional para escenarios y arquitectura' },
+        { title: 'Cabezas Móviles', description: 'Cabezas móviles dinámicas para eventos en vivo e instalaciones' },
       ],
     },
     caseStudy: {
@@ -938,11 +930,12 @@ const es: Translations = {
   productCategories: {
     tag: 'Líneas de Productos',
     title: 'Soluciones de Ingeniería de Precisión',
-    subtitle: 'Sistemas de pantallas COB LED premium diseñados para claridad, fiabilidad y despliegue global.',
+    subtitle: 'Sistemas de iluminación y pantallas profesionales diseñados para rendimiento y fiabilidad.',
     products: [
-      { title: 'Pantalla COB Ultra-Fina', tag: 'P0.7 – P1.5', description: 'Precisión chip-on-board para visuales de misión crítica.' },
-      { title: 'Pantalla Rental y Giras', tag: 'Instalación Rápida', description: 'Paneles modulares ligeros para eventos en vivo y escenarios.' },
-      { title: 'Pantalla Curva / Creativa', tag: 'Geometría Flexible', description: 'Curvas sin costuras para experiencias arquitectónicas y comerciales.' },
+      { title: 'Pantalla LED', tag: 'Pantalla', description: 'Pantallas LED de alta calidad para diversas aplicaciones.' },
+      { title: 'Puck Lights', tag: 'Iluminación', description: 'Soluciones de iluminación compactas y versátiles.' },
+      { title: 'Wash Light', tag: 'Escenario', description: 'Iluminación wash profesional para escenarios y arquitectura.' },
+      { title: 'Moving Heads', tag: 'Dinámico', description: 'Cabezas móviles dinámicas para eventos en vivo e instalaciones.' },
     ],
   },
   ai: {
@@ -1060,15 +1053,15 @@ const es: Translations = {
   productsSection: {
     tag: 'NUESTROS PRODUCTOS',
     title: 'Soluciones LED',
-    subtitle: 'Descubra nuestra gama de tecnologías de pantallas LED de vanguardia',
+    subtitle: 'Descubra nuestra gama de tecnologías LED de vanguardia',
     learnMore: 'Más Información',
     navHint: 'Use las teclas de flecha o arrastre para navegar',
     products: [
-      { name: 'NEXUS PRO', subtitle: 'Pantalla LED Interior', description: 'Panel LED de paso ultrafino para instalaciones interiores premium con precisión de color impresionante.', specs: ['P1.2-P2.5 Paso', '3840Hz Refresco', '5000:1 Contraste'] },
-      { name: 'CURVE X', subtitle: 'Pantalla LED Flexible', description: 'Tecnología LED flexible revolucionaria para pantallas curvas y cilíndricas inmersivas.', specs: ['360° Flexible', 'Curva Sin Costuras', 'Diseño Modular'] },
-      { name: 'ALL-IN-ONE', subtitle: 'Pantalla LED Inteligente', description: 'Solución completa para salas de reuniones con sistema de control integrado y soporte móvil.', specs: ['135"-216" Tamaños', 'Táctil', 'Transmisión Inalámbrica'] },
-      { name: 'STAGE PRO', subtitle: 'Panel LED Rental', description: 'Módulos LED profesionales para eventos con sistema de bloqueo rápido para despliegue rápido.', specs: ['500x500mm', 'Bloqueo Rápido', 'IP65'] },
-      { name: 'CYLINDER 360', subtitle: 'Pantalla LED Cilíndrica', description: 'Columnas LED cilíndricas llamativas para retail, exposiciones y espacios arquitectónicos.', specs: ['360° Visión', 'Tamaños Personalizados', 'Interactivo'] },
+      { name: 'PANTALLA LED', subtitle: 'Pantalla de Alta Calidad', description: 'Pantallas LED premium diseñadas para impresionantes visuales en cualquier entorno, desde corporativo hasta entretenimiento.', specs: ['Resolución 4K', '3840Hz Refresco', '5000:1 Contraste'] },
+      { name: 'POSTER LED', subtitle: 'Pantalla Plegable', description: 'Pantalla plegable de aluminio fundido con gestión inteligente de clúster para retail, publicidad y eventos.', specs: ['Diseño Plegable', 'Control Inteligente', 'Múltiples Pitch'] },
+      { name: 'LUCES PUCK', subtitle: 'Iluminación Compacta', description: 'Soluciones de iluminación puck versátiles que ofrecen iluminación precisa para aplicaciones arquitectónicas y decorativas.', specs: ['Regulable', 'RGB+W', 'Montaje Superficial'] },
+      { name: 'LUZ DE RELLENO', subtitle: 'Relleno Profesional', description: 'Potentes luminarias de relleno diseñadas para producciones de escenario, eventos y resaltado arquitectónico.', specs: ['Haz Amplio', 'Control DMX', 'IP65'] },
+      { name: 'CABEZAS MÓVILES', subtitle: 'Fixtures Dinámicos', description: 'Cabezas móviles inteligentes que aportan movimiento dinámico y color a eventos en vivo e instalaciones.', specs: ['Pan/Tilt', 'Patrones Gobo', 'DMX512'] },
     ],
   },
   contactFooter: {
@@ -1124,12 +1117,12 @@ const fr: Translations = {
       ],
     },
     products: {
-      sectionTitle: 'Systèmes LED',
+      sectionTitle: 'Systèmes d\'Éclairage',
       items: [
-        { title: 'Écran COB LED', description: 'Technologie Chip-on-Board de nouvelle génération' },
-        { title: 'Écrans LED Intérieurs', description: 'Écrans à pas fin pour applications intérieures' },
-        { title: 'Écrans LED Extérieurs', description: 'Solutions haute luminosité résistantes aux intempéries' },
-        { title: 'Écrans Rental et Scène', description: 'Panneaux légers prêts pour la tournée' },
+        { title: 'Écran LED', description: 'Écrans LED haute qualité pour diverses applications' },
+        { title: 'Lumières Puck', description: 'Solutions d\'éclairage puck compactes et polyvalentes' },
+        { title: 'Lumière de Lavage', description: 'Éclairage de lavage professionnel pour scène et architecture' },
+        { title: 'Têtes Mobiles', description: 'Fixtures de têtes mobiles dynamiques pour événements et installations' },
       ],
     },
     caseStudy: {
@@ -1227,11 +1220,12 @@ const fr: Translations = {
   productCategories: {
     tag: 'Gammes de Produits',
     title: 'Solutions d\'Ingénierie de Précision',
-    subtitle: 'Systèmes d\'affichage COB LED premium conçus pour la clarté, la fiabilité et le déploiement mondial.',
+    subtitle: 'Systèmes d\'éclairage et d\'affichage professionnels conçus pour la performance et la fiabilité.',
     products: [
-      { title: 'Affichage COB Ultra-Fin', tag: 'P0.7 – P1.5', description: 'Précision chip-on-board pour des visuels critiques.' },
-      { title: 'Affichage Rental & Tournée', tag: 'Installation Rapide', description: 'Panneaux modulaires légers pour événements en direct et scènes.' },
-      { title: 'Affichage Courbe / Créatif', tag: 'Géométrie Flexible', description: 'Courbes sans couture pour des expériences architecturales et commerciales.' },
+      { title: 'Écran LED', tag: 'Affichage', description: 'Écrans LED haute qualité pour diverses applications.' },
+      { title: 'Puck Lights', tag: 'Éclairage', description: 'Solutions d\'éclairage compactes et polyvalentes.' },
+      { title: 'Wash Light', tag: 'Scène', description: 'Éclairage wash professionnel pour scène et architecture.' },
+      { title: 'Moving Heads', tag: 'Dynamique', description: 'Têtes mobiles dynamiques pour événements et installations.' },
     ],
   },
   ai: {
@@ -1349,15 +1343,15 @@ const fr: Translations = {
   productsSection: {
     tag: 'NOS PRODUITS',
     title: 'Solutions LED',
-    subtitle: 'Découvrez notre gamme de technologies d\'affichage LED de pointe',
+    subtitle: 'Découvrez notre gamme de technologies LED de pointe',
     learnMore: 'En Savoir Plus',
     navHint: 'Utilisez les flèches ou glissez pour naviguer',
     products: [
-      { name: 'NEXUS PRO', subtitle: 'Écran LED Intérieur', description: 'Panneau LED à pas ultra-fin pour installations intérieures premium avec une précision de couleur étonnante.', specs: ['P1.2-P2.5 Pas', '3840Hz Rafraîchissement', '5000:1 Contraste'] },
-      { name: 'CURVE X', subtitle: 'Écran LED Flexible', description: 'Technologie LED flexible révolutionnaire pour écrans courbes et cylindriques immersifs.', specs: ['360° Flexible', 'Courbe Sans Couture', 'Design Modulaire'] },
-      { name: 'ALL-IN-ONE', subtitle: 'Écran LED Intelligent', description: 'Solution complète pour salles de réunion avec système de contrôle intégré et support mobile.', specs: ['135"-216" Tailles', 'Tactile', 'Cast Sans Fil'] },
-      { name: 'STAGE PRO', subtitle: 'Panneau LED Rental', description: 'Modules LED professionnels pour événements avec système de verrouillage rapide.', specs: ['500x500mm', 'Verrouillage Rapide', 'IP65'] },
-      { name: 'CYLINDER 360', subtitle: 'Écran LED Cylindrique', description: 'Colonnes LED cylindriques pour retail, expositions et espaces architecturaux.', specs: ['360° Vision', 'Tailles Personnalisées', 'Interactif'] },
+      { name: 'ÉCRAN LED', subtitle: 'Affichage Haute Qualité', description: 'Écrans LED premium conçus pour des visuels époustouflants dans n\'importe quel environnement, du corporate à l\'entertainment.', specs: ['Résolution 4K', '3840Hz Rafraîchissement', '5000:1 Contraste'] },
+      { name: 'POSTER LED', subtitle: 'Affichage Pliable', description: 'Écran pliable en aluminium moulé avec gestion intelligente de cluster pour le retail, la publicité et les événements.', specs: ['Design Pliable', 'Contrôle Intelligent', 'Multiples Pitch'] },
+      { name: 'LUMIÈRES PUCK', subtitle: 'Éclairage Compact', description: 'Solutions d\'éclairage puck polyvalentes offrant un éclairage précis pour les applications architecturales et décoratives.', specs: ['Gradable', 'RGB+W', 'Montage en Surface'] },
+      { name: 'LUMIÈRE DE LAVAGE', subtitle: 'Lavage Professionnel', description: 'Projecteurs de lavage puissants conçus pour les productions scéniques, événements et mise en valeur architecturale.', specs: ['Faisceau Large', 'Contrôle DMX', 'IP65'] },
+      { name: 'TÊTES MOBILES', subtitle: 'Fixtures Dynamiques', description: 'Têtes mobiles intelligentes apportant mouvement dynamique et couleur aux événements en direct et installations.', specs: ['Pan/Tilt', 'Gobos', 'DMX512'] },
     ],
   },
   contactFooter: {
@@ -1413,12 +1407,12 @@ const ar: Translations = {
       ],
     },
     products: {
-      sectionTitle: 'أنظمة شاشات LED',
+      sectionTitle: 'أنظمة الإضاءة',
       items: [
-        { title: 'شاشة COB LED', description: 'تقنية Chip-on-Board من الجيل التالي' },
-        { title: 'شاشات LED داخلية', description: 'شاشات دقيقة للتطبيقات الداخلية' },
-        { title: 'شاشات LED خارجية', description: 'حلول عالية السطوع مقاومة للطقس' },
-        { title: 'شاشات Rental والمسرح', description: 'ألواح خفيفة جاهزة للجولات' },
+        { title: 'شاشة LED', description: 'شاشات LED عالية الجودة لتطبيقات متنوعة' },
+        { title: 'أضواء باك', description: 'حلول إضاءة باك المدمجة والمتعددة الاستخدامات' },
+        { title: 'إضاءة ووش', description: 'إضاءة ووش احترافية للمسرح والتطبيقات المعمارية' },
+        { title: 'رؤوس متحركة', description: 'أجهزة رؤوس متحركة ديناميكية للفعاليات والتركيبات' },
       ],
     },
     caseStudy: {
@@ -1516,11 +1510,12 @@ const ar: Translations = {
   productCategories: {
     tag: 'خطوط المنتجات',
     title: 'حلول هندسية دقيقة',
-    subtitle: 'أنظمة شاشات COB LED متميزة مصممة للوضوح والموثوقية والنشر العالمي.',
+    subtitle: 'أنظمة إضاءة وعرض احترافية مصممة للأداء والموثوقية.',
     products: [
-      { title: 'شاشة COB فائقة الدقة', tag: 'P0.7 – P1.5', description: 'دقة chip-on-board للمرئيات الحرجة.' },
-      { title: 'شاشة Rental وجولات', tag: 'تركيب سريع', description: 'ألواح معيارية خفيفة الوزن للأحداث الحية والمسارح.' },
-      { title: 'شاشة منحنية / إبداعية', tag: 'هندسة مرنة', description: 'انحناءات سلسة لتجارب معمارية وتجارية غامرة.' },
+      { title: 'شاشة LED', tag: 'عرض', description: 'شاشات LED عالية الجودة لتطبيقات متنوعة.' },
+      { title: 'Puck Lights', tag: 'إضاءة', description: 'حلول إضاءة مدمجة ومتعددة الاستخدامات.' },
+      { title: 'Wash Light', tag: 'مسرح', description: 'إضاءة wash احترافية للمسرح والاستخدام المعماري.' },
+      { title: 'Moving Heads', tag: 'ديناميكي', description: 'رؤوس متحركة ديناميكية للفعاليات الحية والتركيبات.' },
     ],
   },
   ai: {
@@ -1638,15 +1633,15 @@ const ar: Translations = {
   productsSection: {
     tag: 'منتجاتنا',
     title: 'حلول LED',
-    subtitle: 'اكتشف مجموعتنا من تقنيات شاشات LED المتطورة',
+    subtitle: 'اكتشف مجموعتنا من تقنيات LED المتطورة',
     learnMore: 'اعرف المزيد',
     navHint: 'استخدم مفاتيح الأسهم أو اسحب للتنقل',
     products: [
-      { name: 'NEXUS PRO', subtitle: 'شاشة LED داخلية', description: 'لوحة LED بخطوة بكسل فائقة الدقة للتركيبات الداخلية المتميزة مع دقة لون مذهلة.', specs: ['P1.2-P2.5 خطوة', '3840Hz تحديث', '5000:1 تباين'] },
-      { name: 'CURVE X', subtitle: 'شاشة LED مرنة', description: 'تقنية LED مرنة ثورية لشاشات منحنية وأسطوانية غامرة.', specs: ['360° مرنة', 'انحناء سلس', 'تصميم معياري'] },
-      { name: 'ALL-IN-ONE', subtitle: 'شاشة LED ذكية', description: 'حل متكامل لغرف الاجتماعات مع نظام تحكم مدمج وحامل متحرك.', specs: ['135"-216" أحجام', 'جاهز للمس', 'بث لاسلكي'] },
-      { name: 'STAGE PRO', subtitle: 'لوحة LED للتأجير', description: 'وحدات LED احترافية للفعاليات مع نظام قفل سريع للنشر السريع.', specs: ['500x500mm', 'قفل سريع', 'IP65'] },
-      { name: 'CYLINDER 360', subtitle: 'شاشة LED أسطوانية', description: 'أعمدة LED أسطوانية لافتة للنظر للبيع بالتجزئة والمعارض والمساحات المعمارية.', specs: ['360° مشاهدة', 'أحجام مخصصة', 'جاهز للتفاعل'] },
+      { name: 'شاشة LED', subtitle: 'شاشة عالية الجودة', description: 'شاشات LED متميزة مصممة لتقديم صور مذهلة في أي بيئة، من الشركات إلى الترفيه.', specs: ['دقة 4K', '3840Hz تحديث', '5000:1 تباين'] },
+      { name: 'بوستر LED', subtitle: 'شاشة قابلة للطي', description: 'شاشة LED قابلة للطي من الألومنيوم المصبوب مع إدارة ذكية للمجموعات للتجزئة والإعلانات والفعاليات.', specs: ['تصميم قابل للطي', 'تحكم ذكي', 'مسافات بكسل متعددة'] },
+      { name: 'أضواء باك', subtitle: 'إضاءة مدمجة', description: 'حلول إضاءة باك متعددة الاستخدامات توفر إضاءة دقيقة للتطبيقات المعمارية والديكور.', specs: ['قابل للتعتيم', 'RGB+W', 'تركيب سطحي'] },
+      { name: 'إضاءة ووش', subtitle: 'وش احترافي', description: 'أجهزة إضاءة ووش قوية مصممة للإنتاج المسرحي والفعاليات والإضاءة المعمارية.', specs: ['شعاع واسع', 'تحكم DMX', 'IP65'] },
+      { name: 'رؤوس متحركة', subtitle: 'أجهزة ديناميكية', description: 'رؤوس متحركة ذكية تجلب الحركة الديناميكية واللون إلى الفعاليات الحية والتركيبات.', specs: ['بان/تيلت', 'أنماط غوبو', 'DMX512'] },
     ],
   },
   contactFooter: {

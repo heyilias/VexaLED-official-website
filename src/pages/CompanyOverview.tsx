@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchOverlay from "@/components/SearchOverlay";
@@ -57,6 +58,10 @@ const CompanyOverview = () => {
 
   return (
     <main className="min-h-screen bg-background font-sans selection:bg-primary/20">
+      <SEOHead
+        title="Company Overview"
+        description="Learn about VexaLED — a global leader in professional LED display solutions. Discover our engineering expertise, values, and commitment to delivering world-class visual experiences."
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO */}

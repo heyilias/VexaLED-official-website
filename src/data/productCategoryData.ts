@@ -1,3 +1,6 @@
+import ledScreenImg from '@/assets/products/led-screen/hero.png';
+import ledPosterImg from '@/assets/products/led-screen/hero.png';
+
 export interface Product {
   id: string;
   slug: string;
@@ -14,7 +17,21 @@ export interface CategoryData {
   products: Product[];
 }
 
+// NEW CATEGORIES
 const categories: Record<string, CategoryData> = {
+  'led-screen': {
+    title: 'LED Screen',
+    heroImage: ledScreenImg,
+    heroSubtitle: 'High-quality LED display screens for various applications',
+    products: [
+      { id: 'led-5', slug: 'vx-led-poster', name: 'VX-LED Poster', image: ledPosterImg, application: 'advertising', pixelPitch: 'fine' },
+    ],
+  },
+};
+
+// OLD CATEGORIES - PRESERVED FOR FUTURE USE
+/*
+const categoriesLegacy: Record<string, CategoryData> = {
   cob: {
     title: 'COB LED',
     heroImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&h=1080&fit=crop',
@@ -53,23 +70,23 @@ const categories: Record<string, CategoryData> = {
     ],
   },
 };
+*/
 
-export function getProductCategories(_t?: any): Record<string, CategoryData> {
+export function getProductCategories(): Record<string, CategoryData> {
   return categories;
 }
 
-export function getApplicationFilters(_t?: any): { value: string; label: string }[] {
+export function getApplicationFilters(): { value: string; label: string }[] {
   return [
     { value: 'all', label: 'All Applications' },
     { value: 'corporate', label: 'Corporate' },
     { value: 'broadcast', label: 'Broadcast' },
     { value: 'advertising', label: 'Advertising' },
-    { value: 'sports', label: 'Sports' },
     { value: 'events', label: 'Events' },
   ];
 }
 
-export function getPixelPitchFilters(_t?: any): { value: string; label: string }[] {
+export function getPixelPitchFilters(): { value: string; label: string }[] {
   return [
     { value: 'all', label: 'All Pixel Pitches' },
     { value: 'fine', label: 'Fine Pitch (< 2mm)' },

@@ -1,5 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
+import { useNewsletter } from "@/hooks/useNewsletter";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -23,7 +25,7 @@ export default function Blog() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
+  const newsletter = useNewsletter();
   const pt = usePageTranslations();
   const t = pt.blog;
 
@@ -43,14 +45,30 @@ export default function Blog() {
   const filteredPosts = t.posts.filter((p) => activeCategory === "all" || p.category === activeCategory);
   const gridPosts = filteredPosts.filter((p) => !p.featured);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => setLoading(false), 800);
+    await newsletter.mutateAsync({ email });
+    if (!newsletter.isError) {
+      setEmail("");
+    }
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://vexaled.com" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://vexaled.com/blog" },
+    ],
   };
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title="LED Display Knowledge Hub"
+        description="Explore VexaLED's blog for the latest insights on LED technology, smart displays, product updates, and industry case studies."
+        jsonLd={breadcrumbJsonLd}
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO */}
@@ -165,8 +183,8 @@ export default function Blog() {
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t.newsletterDescription}</p>
               <form onSubmit={handleSubscribe} className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-2">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="flex-1 rounded-full border border-border/30 bg-transparent px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/40 focus:outline-none" />
-                <button type="submit" disabled={loading} className="shrink-0 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-60">
-                  {loading ? t.subscribing : t.subscribe}
+                <button type="submit" disabled={newsletter.isPending} className="shrink-0 rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-60">
+                  {newsletter.isPending ? t.subscribing : t.subscribe}
                 </button>
               </form>
             </div>

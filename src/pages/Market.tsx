@@ -1,38 +1,35 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchOverlay from "@/components/SearchOverlay";
-import { Home, ChevronRight, ArrowRight, Ruler, Sun, Eye, Wrench, Activity, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Zap, Shield, Clock, Palette, ChevronRight } from "lucide-react";
 import { getMarketDetail } from "@/data/marketDetailData";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.6 },
-};
-const stagger = (i: number) => ({ ...fadeUp, transition: { ...fadeUp.transition, delay: i * 0.1 } });
-
-const snapshotIcons = [
-  <Ruler className="h-5 w-5" />,
-  <Sun className="h-5 w-5" />,
-  <Eye className="h-5 w-5" />,
-  <Wrench className="h-5 w-5" />,
-  <Activity className="h-5 w-5" />,
-];
-
-const flowStepColors = [
-  "from-primary/20 to-primary/5",
-  "from-blue-500/20 to-blue-500/5",
-  "from-emerald-500/20 to-emerald-500/5",
-  "from-amber-500/20 to-amber-500/5",
+const differentiatorIcons = [
+  <Zap className="h-5 w-5" />,
+  <Shield className="h-5 w-5" />,
+  <Clock className="h-5 w-5" />,
+  <Palette className="h-5 w-5" />,
 ];
 
 const Market = () => {
   const { slug } = useParams<{ slug: string }>();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const heroOpacity = useTransform(smoothProgress, [0, 0.3], [1, 0]);
+  const heroScale = useTransform(smoothProgress, [0, 0.3], [1, 1.1]);
+  const heroY = useTransform(smoothProgress, [0, 0.3], [0, 100]);
+
   const openSearch = useCallback(() => setIsSearchOpen(true), []);
   const closeSearch = useCallback(() => setIsSearchOpen(false), []);
 
@@ -41,95 +38,204 @@ const Market = () => {
   if (!market) return <Navigate to="/" replace />;
 
   return (
-    <main className="min-h-screen bg-background">
+    <main ref={containerRef} className="min-h-screen bg-[#0a0a0f]">
+      <SEOHead
+        title={`${market.title} LED Displays`}
+        description={market.description ?? `Explore VexaLED's LED display solutions for ${market.title}. High-brightness, reliable screens engineered for professional environments.`}
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
-      {/* HERO */}
-      <section className="relative h-[65vh] min-h-[480px] max-h-[750px] overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={market.heroImage} alt={market.title} className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-transparent" />
-        </div>
-        <div className="container-wide relative mx-auto flex h-full flex-col justify-end px-5 pb-14 md:px-8 lg:px-10">
-          <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mb-5 flex items-center gap-2 text-sm text-muted-foreground">
-            <Link to="/" className="flex items-center gap-1 hover:text-foreground transition-colors"><Home className="h-3.5 w-3.5" /><span>Home</span></Link>
-            <ChevronRight className="h-3 w-3" />
-            <span>Markets</span>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-foreground font-medium">{market.title}</span>
-          </motion.nav>
-          <motion.span initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mb-3 inline-block w-fit rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-            {market.capabilityTag}
-          </motion.span>
-          <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.35 }} className="mb-4 max-w-3xl text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-            {market.title}
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }} className="max-w-2xl text-lg text-muted-foreground md:text-xl">
-            {market.positioningStatement}
-          </motion.p>
-        </div>
-      </section>
+      {/* HERO - Full Screen Cinematic */}
+      <section className="relative h-screen overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          style={{ scale: heroScale, y: heroY, opacity: heroOpacity }}
+        >
+          <img
+            src={market.heroImage}
+            alt={market.title}
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/80 via-transparent to-transparent" />
+        </motion.div>
 
-      {/* SNAPSHOT */}
-      <section className="py-16 md:py-20">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-10 max-w-2xl">
-            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">At a Glance</span>
-            <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">Market Snapshot</h2>
-            <p className="text-muted-foreground leading-relaxed">{market.description}</p>
-          </motion.div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {Object.entries(market.snapshot).map(([key, value], i) => (
-              <motion.div key={key} {...stagger(i)} className="rounded-xl border border-border/30 bg-card/40 p-5 text-center transition-colors hover:border-primary/20">
-                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">{snapshotIcons[i]}</div>
-                <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{key}</p>
-                <p className="text-sm font-bold text-foreground">{value}</p>
-              </motion.div>
-            ))}
+        <div className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(212,255,0,0.3) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(212,255,0,0.3) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        <div className="relative z-10 flex h-full items-end pb-20 md:pb-32">
+          <div className="container-wide mx-auto px-6 md:px-8 lg:px-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-6"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-xs font-medium uppercase tracking-widest text-primary backdrop-blur-sm border border-primary/20">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                {market.tag}
+              </span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-6 max-w-4xl font-display text-5xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl"
+            >
+              {market.title}
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="max-w-2xl text-lg leading-relaxed text-white/60 md:text-xl"
+            >
+              {market.headline}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2 }}
+              className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            >
+              <div className="flex flex-col items-center gap-2 text-white/30">
+                <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="h-8 w-px bg-gradient-to-b from-primary/50 to-transparent"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* DIFFERENTIATORS */}
-      <section className="py-16 md:py-20 border-t border-border/20 bg-card/20">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-10">
-            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Our Expertise</span>
-            <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">Why This Market Is Different</h2>
+      {/* SPECS BAR - Floating strip instead of full section */}
+      <section className="relative -mt-16 z-20">
+        <div className="container-wide mx-auto px-6 md:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8"
+          >
+            <div className="grid gap-6 md:grid-cols-3">
+              {market.keySpecs.map((spec, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <span className="font-display text-sm font-bold">{i + 1}</span>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wider text-white/40">{spec.label}</p>
+                    <p className="font-display text-lg font-semibold text-white">{spec.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {market.differentiators.map((diff, i) => (
-              <motion.div key={i} {...stagger(i)} className="flex items-start gap-4 rounded-xl border border-border/30 bg-background/60 p-5 transition-colors hover:border-primary/20">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                <p className="text-foreground leading-relaxed">{diff}</p>
-              </motion.div>
-            ))}
+        </div>
+      </section>
+
+      {/* DIFFERENTIATORS - Minimal List */}
+      <section className="relative py-20 md:py-28">
+        <div className="container-wide mx-auto px-6 md:px-8 lg:px-12">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="mb-4 block text-xs font-medium uppercase tracking-[0.2em] text-primary">
+                Why VEXALED
+              </span>
+              <h2 className="font-display text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
+                Built for {market.title.split(' ')[0]}
+              </h2>
+            </motion.div>
+
+            <div className="space-y-1">
+              {market.differentiators.map((diff, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="group flex items-center gap-4 border-b border-white/5 py-5 transition-colors hover:border-primary/20"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110">
+                    {differentiatorIcons[i % differentiatorIcons.length]}
+                  </div>
+                  <p className="flex-1 text-base text-white/70 transition-colors group-hover:text-white">
+                    {diff}
+                  </p>
+                  <ChevronRight className="h-4 w-4 text-white/20 transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* RECOMMENDED SOLUTIONS */}
-      <section className="py-20 md:py-28 border-t border-border/20">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-12 text-center">
-            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Solutions</span>
-            <h2 className="mb-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">Recommended Products</h2>
-            <p className="mx-auto max-w-xl text-muted-foreground">Purpose-built solutions for {market.title}</p>
+      {/* PRODUCTS - Horizontal Cards */}
+      <section className="relative py-20 md:py-28 border-y border-white/5">
+        <div className="container-wide mx-auto px-6 md:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-12"
+          >
+            <span className="mb-4 block text-xs font-medium uppercase tracking-[0.2em] text-primary">
+              Solutions
+            </span>
+            <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
+              Recommended Products
+            </h2>
           </motion.div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {market.recommendedSolutions.map((sol, i) => (
-              <motion.div key={i} {...stagger(i)}>
-                <Link to={`/products/${sol.category}/${sol.slug}`} className="group block overflow-hidden rounded-2xl border border-border/30 bg-card/40 transition-all hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img src={sol.image} alt={sol.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+              >
+                <Link
+                  to={`/products/${sol.category}/${sol.slug}`}
+                  className="group relative block overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-all duration-500 hover:border-primary/30"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={sol.image}
+                      alt={sol.name}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent opacity-60" />
                   </div>
-                  <div className="p-5">
-                    <h3 className="mb-2 text-lg font-bold text-foreground group-hover:text-primary transition-colors">{sol.name}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{sol.fitReason}</p>
-                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary">View Product <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" /></span>
+                  <div className="p-6">
+                    <h3 className="mb-2 font-display text-xl font-semibold text-white transition-colors group-hover:text-primary">
+                      {sol.name}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-white/50">
+                      {sol.fitReason}
+                    </p>
                   </div>
+                  <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
                 </Link>
               </motion.div>
             ))}
@@ -137,70 +243,88 @@ const Market = () => {
         </div>
       </section>
 
-      {/* APPLICATION FLOW */}
-      <section className="py-20 md:py-28 border-t border-border/20 bg-card/10">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-14 text-center">
-            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Workflow</span>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">How It's Used</h2>
+      {/* PROJECTS GALLERY - Simplified */}
+      <section className="relative py-20 md:py-28">
+        <div className="container-wide mx-auto px-6 md:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-12"
+          >
+            <span className="mb-4 block text-xs font-medium uppercase tracking-[0.2em] text-primary">
+              Portfolio
+            </span>
+            <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
+              Featured Projects
+            </h2>
           </motion.div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {market.applicationFlow.map((step, i) => (
-              <motion.div key={i} {...stagger(i)} className="relative rounded-2xl border border-border/30 bg-background/60 p-6 text-center">
-                <div className={`mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${flowStepColors[i]}`}>
-                  <span className="text-lg font-bold text-foreground">{step.step}</span>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {market.typicalProjects.slice(0, 2).map((project, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="group relative aspect-[16/9] overflow-hidden rounded-2xl"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/90 via-[#0a0a0f]/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <div className="mb-2 h-px w-12 bg-primary translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100" />
+                  <h3 className="font-display text-lg font-semibold text-white">
+                    {project.title}
+                  </h3>
                 </div>
-                <h3 className="mb-2 text-base font-bold text-foreground">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-                {i < market.applicationFlow.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 text-muted-foreground/30">
-                    <ChevronRight className="h-5 w-5" />
-                  </div>
-                )}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TYPICAL PROJECTS */}
-      <section className="py-20 md:py-28 border-t border-border/20">
-        <div className="container-wide mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mb-12">
-            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Real World</span>
-            <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">Typical Projects</h2>
-          </motion.div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {market.typicalProjects.map((project, i) => (
-              <motion.div key={i} {...stagger(i)} className="group relative aspect-[3/2] overflow-hidden rounded-xl border border-border/30">
-                <img src={project.image} alt={project.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4"><h3 className="text-sm font-semibold text-white">{project.title}</h3></div>
-              </motion.div>
-            ))}
-          </div>
+      {/* CTA - Full Bleed */}
+      <section className="relative py-24 md:py-32">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+          <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30"
+            style={{ background: "radial-gradient(circle, rgba(212,255,0,0.1) 0%, transparent 70%)" }}
+          />
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-28 border-t border-border/20 relative overflow-hidden">
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 50%, hsl(66 95% 55% / 0.06) 0%, transparent 50%)" }} />
-        <div className="container-wide relative mx-auto px-5 md:px-8 lg:px-10">
-          <motion.div {...fadeUp} className="mx-auto max-w-2xl text-center">
-            <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary">Get Started</span>
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">{market.ctaLabel}</h2>
-            <p className="mb-8 text-muted-foreground leading-relaxed">{market.ctaDescription}</p>
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link to="/configurator" className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 group">
-                {market.ctaLabel} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
+        <div className="container-wide relative mx-auto px-6 md:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mx-auto max-w-3xl text-center"
+          >
+            <h2 className="mb-4 font-display text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+              {market.ctaTitle}
+            </h2>
+            <p className="mb-8 text-lg leading-relaxed text-white/50">
+              {market.ctaDescription}
+            </p>
+            <Link
+              to="/configurator"
+              className="group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-display text-sm font-semibold uppercase tracking-wider text-[#0a0a0f] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+            >
+              Get Started
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </motion.div>
         </div>
       </section>
 
       <Footer />
-      <AnimatePresence>{isSearchOpen && <SearchOverlay isOpen={isSearchOpen} onClose={closeSearch} />}</AnimatePresence>
+      {isSearchOpen && <SearchOverlay isOpen={isSearchOpen} onClose={closeSearch} />}
     </main>
   );
 };

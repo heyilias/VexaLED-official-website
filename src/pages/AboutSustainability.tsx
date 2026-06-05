@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchOverlay from "@/components/SearchOverlay";
@@ -34,6 +35,10 @@ const AboutSustainability = () => {
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] font-sans selection:bg-emerald-500/20 text-foreground">
+      <SEOHead
+        title="Sustainability & Green LED Technology"
+        description="VexaLED's commitment to sustainable LED display manufacturing. Energy-efficient designs, responsible sourcing, and reduced environmental impact across our product range."
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO */}

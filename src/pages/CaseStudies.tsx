@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 import { motion, useScroll, useTransform, AnimatePresence, useInView } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -36,6 +37,10 @@ const CaseStudies = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title="LED Display Case Studies"
+        description="Explore VexaLED's real-world LED display installations across retail, corporate, sports, and entertainment venues worldwide."
+      />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO */}

@@ -1,8 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send } from 'lucide-react';
+import FocusTrap from 'focus-trap-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useContactForm } from '@/hooks/useContactForm';
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -19,6 +21,7 @@ function generateCaptcha() {
 export default function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
   const [captcha, setCaptcha] = useState(generateCaptcha);
   const { t } = useLanguage();
+  const contactForm = useContactForm();
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', country: '',
     jobTitle: '', productSolution: '', verificationCode: '', message: '',
@@ -26,21 +29,37 @@ export default function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
 
   const refreshCaptcha = useCallback(() => setCaptcha(generateCaptcha()), []);
 
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) onClose();
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm(prev => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (form.verificationCode.toLowerCase() !== captcha.toLowerCase()) {
-      alert('Verification code does not match. Please try again.');
+      const { toast } = await import('sonner');
+      toast.error('Verification code does not match. Please try again.');
       refreshCaptcha();
       return;
     }
-    alert('Thank you for your inquiry! Our engineering team will contact you within 48 hours.');
-    setForm({ firstName: '', lastName: '', email: '', country: '', jobTitle: '', productSolution: '', verificationCode: '', message: '' });
-    refreshCaptcha();
-    onClose();
+    await contactForm.mutateAsync({
+      name: `${form.firstName} ${form.lastName}`.trim(),
+      email: form.email,
+      company: form.jobTitle,
+      message: `Product: ${form.productSolution || 'N/A'}\nCountry: ${form.country}\n\n${form.message}`,
+    });
+    if (!contactForm.isError) {
+      setForm({ firstName: '', lastName: '', email: '', country: '', jobTitle: '', productSolution: '', verificationCode: '', message: '' });
+      refreshCaptcha();
+      onClose();
+    }
   };
 
   const inputClass = "w-full bg-transparent border-b border-border/40 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors";
@@ -59,15 +78,16 @@ export default function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
         >
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-xl rounded-2xl border border-border/20 p-6 md:p-8 shadow-2xl"
-            style={{ backgroundColor: '#0a0a0f' }}
-          >
+          <FocusTrap active={isOpen} focusTrapOptions={{ allowOutsideClick: true }}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-xl rounded-2xl border border-border/20 p-6 md:p-8 shadow-2xl"
+              style={{ backgroundColor: '#0a0a0f' }}
+            >
             <button
               onClick={onClose}
               className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-muted/30"
@@ -148,7 +168,8 @@ export default function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
                 <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </form>
-          </motion.div>
+            </motion.div>
+          </FocusTrap>
         </motion.div>
       )}
     </AnimatePresence>
