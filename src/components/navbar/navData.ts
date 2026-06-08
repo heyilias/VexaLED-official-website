@@ -1,8 +1,18 @@
-export interface NavSubItem {
+import ledPosterNavImg from '@/assets/products/led-screen/poster/front.png';
+import ledScreenNavImg from '@/assets/products/led-screen/hero.png';
+
+export interface NavProduct {
   title: string;
-  description?: string;
+  description: string;
   href: string;
   image?: string;
+}
+
+export interface NavSubCategory {
+  label: string;
+  href: string;
+  comingSoon?: boolean;
+  products: NavProduct[];
 }
 
 export interface NavSection {
@@ -10,9 +20,17 @@ export interface NavSection {
   items: NavSubItem[];
 }
 
+export interface NavSubItem {
+  title: string;
+  description?: string;
+  href: string;
+  image?: string;
+}
+
 export interface NavItem {
   label: string;
   href?: string;
+  subCategories?: NavSubCategory[];
   sections?: NavSection[];
 }
 
@@ -23,7 +41,7 @@ export const navItems: NavItem[] = [
       {
         title: 'Industries',
         items: [
-          { title: 'Sports & Arenas', description: 'Stadium-grade LED solutions for immersive fan experiences', href: '/market/sports', image: '/src/assets/products/navbar/sports.jpg' },
+          { title: 'Sports & Arenas', description: 'Stadium-grade LED solutions', href: '/market/sports', image: '/src/assets/products/navbar/sports.jpg' },
           { title: 'Advertising & DOOH', description: 'High-impact digital out-of-home displays', href: '/market/advertising', image: '/src/assets/products/navbar/advertising.jpg' },
           { title: 'Events & Staging', description: 'Touring and rental displays for live productions', href: '/market/events', image: '/src/assets/products/navbar/events.jpg' },
           { title: 'Virtual Production', description: 'XR-ready LED volumes for film and broadcast', href: '/market/virtual-production', image: '/src/assets/products/navbar/virtual-production.jpg' },
@@ -32,35 +50,43 @@ export const navItems: NavItem[] = [
       },
     ],
   },
-
   {
     label: 'Products',
-    sections: [
+    subCategories: [
       {
-        title: 'LED Displays',
-        items: [
-          { title: 'LED Poster Display', description: 'Portable digital signage with foldable design', href: '/products/led-screen/vx-led-poster', image: '/src/assets/products/navbar/led-poster.jpg' },
-          { title: 'Folding Screen', description: 'Modular panels for events and video walls', href: '/products/folding-screen', image: '/src/assets/products/navbar/led-screen.jpg' },
+        label: 'Indoor',
+        href: '/products/led-screens',
+        products: [
+          { title: 'City Light Cabinet Series', description: 'Standard, Flexible, and 45° Right Angle — one 500×500mm hardware platform', href: '/products/led-screens/city-light-series', image: ledScreenNavImg },
+          { title: 'Small Pitch Series', description: 'Ultra-fine pitch indoor displays — 400×300 to 640×480mm cabinets', href: '/products/led-screens/indoor-small-pitch', image: ledScreenNavImg },
+          { title: 'Rental & Fixed Series', description: 'Rental events and permanent fixed installations — P2.604 to P5', href: '/products/led-screens/indoor-rental-fixed', image: ledScreenNavImg },
+          { title: 'Creative Display Series', description: 'Soft board, mirror screen, transparent, and folding screen', href: '/products/led-screens/indoor-creative', image: ledScreenNavImg },
         ],
+      },
+      {
+        label: 'Outdoor',
+        href: '/products/led-screens',
+        products: [
+          { title: 'Rental Series', description: 'IP65 waterproof rental cabinets for outdoor events and touring', href: '/products/led-screens/outdoor-rental', image: ledScreenNavImg },
+          { title: 'Fixed Installation Series', description: 'Permanent outdoor displays — small pitch to large-format DIP in-line', href: '/products/led-screens/outdoor-fixed', image: ledScreenNavImg },
+          { title: 'Front Maintenance Series', description: 'Front-serviceable cabinets — screw and hexagonal lock types', href: '/products/led-screens/outdoor-front-maintenance', image: ledScreenNavImg },
+        ],
+      },
+      {
+        label: 'Poster',
+        href: '/products/led-screens',
+        products: [
+          { title: 'LED Poster Display', description: 'Portable foldable LED display for retail & events', href: '/products/led-screens/led-poster-display', image: ledPosterNavImg },
+        ],
+      },
+      {
+        label: 'Lighting',
+        href: '/products/lighting',
+        comingSoon: true,
+        products: [],
       },
     ],
   },
-  /* HIDDEN - Case Study page temporarily disabled
-  {
-    label: 'Case Study',
-    sections: [
-      {
-        title: 'Featured Projects',
-        items: [
-          { title: 'Dubai World Expo', description: 'UAE · Immersive Pavilion', href: '/case-study/dubai-expo', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&h=300&fit=crop' },
-          { title: 'MSG Sphere Preview', description: 'Las Vegas · Entertainment Venue', href: '/case-study/msg-sphere', image: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=300&fit=crop' },
-          { title: 'Shanghai Stadium', description: 'China · Sports Venue', href: '/case-study/shanghai-stadium', image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=300&fit=crop' },
-          { title: 'Berlin Concert Hall', description: 'Germany · Live Events', href: '/case-study/berlin-concert', image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=300&fit=crop' },
-        ],
-      },
-    ],
-  },
-  */
   {
     label: 'Service & Support',
     sections: [

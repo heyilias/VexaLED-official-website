@@ -1,10 +1,22 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Maps each carousel product name → its product detail / category route.
+// The LED SCREEN card routes to the LED Poster product page (the live flagship);
+// lighting items route to the lighting category page until they ship.
+const PRODUCT_LINKS: Record<string, string> = {
+  'LED SCREEN':   '/products/led-screens/led-poster-display',
+  'PUCK LIGHTS':  '/products/lighting',
+  'WASH LIGHT':   '/products/lighting',
+  'MOVING HEADS': '/products/lighting',
+};
+const DEFAULT_PRODUCT_LINK = '/products/led-screens';
 
 interface Product {
   id: number;
@@ -13,6 +25,7 @@ interface Product {
   description: string;
   image: string;
   specs: string[];
+  link: string;
 }
 
 const ProductsSection = () => {
@@ -33,6 +46,9 @@ const ProductsSection = () => {
     description: p.description,
     image: `/images/product-${i + 1}.png`,
     specs: p.specs,
+    // Honour an explicit link on the product if translations provide one,
+    // otherwise look it up by name, otherwise fall back to the LED Screens list.
+    link: (p as Product).link || PRODUCT_LINKS[p.name?.toUpperCase()] || DEFAULT_PRODUCT_LINK,
   }));
 
   const [activeIndex, setActiveIndex] = useState(Math.min(2, products.length - 1));
@@ -240,10 +256,13 @@ const ProductsSection = () => {
               </div>
 
               {/* CTA */}
-              <button className="group inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display text-sm uppercase tracking-wider rounded-full hover:bg-primary/80 transition-colors">
+              <Link
+                to={activeProduct.link}
+                className="group inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-display text-sm uppercase tracking-wider rounded-full hover:bg-primary/80 transition-colors"
+              >
                 <span>{t.productsSection?.learnMore || 'Learn More'}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
 
               {/* Pagination */}
               <div className="flex gap-2 mt-6 pt-6 border-t border-foreground/10">

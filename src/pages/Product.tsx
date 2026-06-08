@@ -287,6 +287,7 @@ const Product = () => {
     message: "",
   });
   const [activeVariant, setActiveVariant] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
   const contactForm = useContactForm();
 
   const heroRef = useRef<HTMLElement>(null);
@@ -301,10 +302,20 @@ const Product = () => {
   const openSearch = useCallback(() => setIsSearchOpen(true), []);
   const closeSearch = useCallback(() => setIsSearchOpen(false), []);
 
-  if (!slug || !category) return <Navigate to="/" replace />;
-  const product = getProductDetail(slug, category);
+  // Static routes have no :slug param — derive the slug from the pathname
+  const pathname = window.location.pathname;
+  const resolvedSlug = slug ?? pathname.split('/').pop() ?? 'led-poster-display';
+  const resolvedCategory = category ?? 'led-screens';
+  if (!resolvedSlug) return <Navigate to="/" replace />;
+  const product = getProductDetail(resolvedSlug, resolvedCategory);
   if (!product) return <Navigate to="/" replace />;
 
+  // If the product has configuration tabs (e.g. city-light-series), overlay tab data
+  const currentTab = product.tabs?.[activeTab];
+  const activeValueProps = currentTab?.valueProps ?? product.valueProps;
+  const activeFeatures = currentTab?.features ?? product.features;
+  const activeVariants = currentTab?.variants ?? product.variants;
+  const activeParameters = currentTab?.parameters ?? product.parameters;
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({
       ...prev,
@@ -363,7 +374,7 @@ const Product = () => {
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
       {/* HERO SECTION - Custom hero for VX-LED Poster */}
-      {product.slug === 'vx-led-poster' || product.slug === 'led-screen' ? (
+      {product.slug === 'vx-led-poster' || product.slug === 'led-poster-display' || product.slug === 'led-screen' ? (
         <VXLedPosterHero
           onExploreClick={() => {
             document.getElementById('product-overview')?.scrollIntoView({ behavior: 'smooth' });
@@ -400,8 +411,8 @@ const Product = () => {
                 Home
               </Link>
               <ChevronRight className="h-3 w-3" />
-              <Link to={`/products/${category}`} className="capitalize hover:text-white/60 transition-colors">
-                {category}
+              <Link to={`/products/${resolvedCategory}`} className="capitalize hover:text-white/60 transition-colors">
+                {resolvedCategory.replace('-', ' ')}
               </Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-white/60">{product.title}</span>
@@ -464,7 +475,7 @@ const Product = () => {
       )}
 
       {/* PRODUCT OVERVIEW - Multiple Views Gallery */}
-      {(product.slug === 'vx-led-poster' || product.slug === 'led-screen') && (
+      {(product.slug === 'vx-led-poster' || product.slug === 'led-poster-display' || product.slug === 'led-screen') && (
         <ProductOverview
           views={[
             { id: "front", label: "Front View", image: ledPosterFront },
@@ -484,7 +495,7 @@ const Product = () => {
       )}
 
       {/* APPLICATIONS / WHERE IT SHINES */}
-      {(product.slug === 'vx-led-poster' || product.slug === 'led-screen') ? (
+      {(product.slug === 'vx-led-poster' || product.slug === 'led-poster-display' || product.slug === 'led-screen') ? (
         <section className="py-24 md:py-32 bg-neutral-950">
           <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
             <SectionHeader
@@ -523,7 +534,7 @@ const Product = () => {
       )}
 
       {/* PRODUCT VIDEO SECTION */}
-      {(product.slug === 'vx-led-poster' || product.slug === 'led-screen') && (
+      {(product.slug === 'vx-led-poster' || product.slug === 'led-poster-display' || product.slug === 'led-screen') && (
         <section className="relative bg-black py-24 lg:py-32">
           <div className="mx-auto max-w-[1200px] px-6 lg:px-12">
             <motion.div
@@ -574,13 +585,39 @@ const Product = () => {
         </section>
       )}
 
+      {/* CONFIGURATION TABS (city-light-series and similar multi-tab products) */}
+      {product.tabs && product.tabs.length > 1 && (
+        <section className="py-12 bg-black border-b border-white/[0.06]">
+          <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
+            <div className="flex flex-wrap gap-3">
+              {product.tabs.map((tab, i) => (
+                <button
+                  key={i}
+                  onClick={() => { setActiveTab(i); setActiveVariant(0); }}
+                  className={`rounded-xl border px-6 py-3 text-sm font-semibold transition-all duration-200 ${
+                    activeTab === i
+                      ? 'border-[#CCFF00]/50 bg-[#CCFF00]/10 text-[#CCFF00]'
+                      : 'border-white/[0.08] bg-transparent text-white/45 hover:border-white/20 hover:text-white/70'
+                  }`}
+                >
+                  {tab.name}
+                </button>
+              ))}
+            </div>
+            {currentTab?.tagline && (
+              <p className="mt-4 text-sm text-white/40">{currentTab.tagline}</p>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* CORE FEATURES GRID */}
       <section className="py-32 md:py-40 bg-black">
         <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
           <SectionHeader eyebrow="Features" title="Engineered for Excellence" />
 
           <div className="grid md:grid-cols-3 gap-12 md:gap-16">
-            {product.valueProps.map((vp, i) => (
+            {activeValueProps.map((vp, i) => (
               <FeatureCard
                 key={i}
                 icon={featureIcons[i % featureIcons.length]}
@@ -597,7 +634,7 @@ const Product = () => {
       <section className="py-32 md:py-40 bg-neutral-950">
         <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
           <div className="space-y-40 md:space-y-56">
-            {product.features.map((feature, i) => {
+            {activeFeatures.map((feature, i) => {
               const isReversed = i % 2 === 1;
               return (
                 <motion.div
@@ -639,7 +676,7 @@ const Product = () => {
       </section>
 
       {/* PRODUCT VARIANTS */}
-      {product.variants.length > 0 && (
+      {activeVariants.length > 0 && (
         <section className="py-32 md:py-40 bg-black">
           <div className="max-w-[1440px] mx-auto px-8 md:px-12 lg:px-16">
             <SectionHeader
@@ -649,7 +686,7 @@ const Product = () => {
             />
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {product.variants.map((variant, i) => (
+              {activeVariants.map((variant, i) => (
                 <VariantCard
                   key={i}
                   {...variant}
@@ -670,7 +707,7 @@ const Product = () => {
 
           <motion.div {...fadeIn} className="max-w-3xl mx-auto">
             <div className="rounded-xl border border-white/[0.06] p-8 md:p-10">
-              {product.parameters.map((param, i) => (
+              {activeParameters.map((param, i) => (
                 <SpecRow key={i} label={param.label} value={param.value} />
               ))}
             </div>

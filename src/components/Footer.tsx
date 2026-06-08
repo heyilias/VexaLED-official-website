@@ -18,7 +18,9 @@ const TikTokIcon = ({ className, strokeWidth }: { className?: string; strokeWidt
 
 // Product links use keywords — not translated
 const productLinks = [
-  { label: 'VX-LED Poster', href: '/products/led-screen/vx-led-poster' },
+  { label: 'LED Poster Display', href: '/products/led-screens/led-poster-display' },
+  { label: 'City Light Cabinet Series', href: '/products/led-screens/city-light-series' },
+  { label: 'Small Pitch Series', href: '/products/led-screens/indoor-small-pitch' },
 ];
 
 const solutionLinks = [
