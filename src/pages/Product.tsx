@@ -27,15 +27,15 @@ import {
 import { getProductDetail } from "@/data/productDetailData";
 import VXLedPosterHero from "@/components/VXLedPosterHero";
 import ProductOverview from "@/components/ProductOverview";
-import ledPosterFront from "@/assets/products/led-screen/poster/front.png";
-import ledPosterBack from "@/assets/products/led-screen/poster/back.png";
-import ledPosterDetails from "@/assets/products/led-screen/poster/details.png";
-import ledPosterOther from "@/assets/products/led-screen/poster/other1.png";
+import ledPosterFront from "@/assets/products/led-screen/poster/front.webp";
+import ledPosterBack from "@/assets/products/led-screen/poster/back.webp";
+import ledPosterDetails from "@/assets/products/led-screen/poster/details.webp";
+import ledPosterOther from "@/assets/products/led-screen/poster/other1.webp";
 
 // Application images
-import shoppingImg from "@/assets/products/led-screen/poster/Shopping.png";
-import exhibitionImg from "@/assets/products/led-screen/poster/Exhibition.png";
-import hotelImg from "@/assets/products/led-screen/poster/Hotel.png";
+import shoppingImg from "@/assets/products/led-screen/poster/Shopping.webp";
+import exhibitionImg from "@/assets/products/led-screen/poster/Exhibition.webp";
+import hotelImg from "@/assets/products/led-screen/poster/Hotel.webp";
 import productVideo from "@/assets/products/led-screen/poster/video.webm";
 
 // Premium Animation Configurations

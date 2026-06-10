@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 import cobDisplay from '@/assets/products/cob-display.jpg';
-import rentalDisplay from '@/assets/products/rental-display.png';
+import rentalDisplay from '@/assets/products/rental-display.webp';
 import curvedDisplay from '@/assets/products/curved-display.jpg';
 
 const productImages = [cobDisplay, rentalDisplay, curvedDisplay];

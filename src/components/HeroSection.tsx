@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// import heroImage1 from "@/assets/hero/hero-1.png";
-// import heroImage2 from "@/assets/hero/hero-2.png";
-// import heroImage3 from "@/assets/hero/hero-3.png";
+// JPEG fallback (older browsers / OS image previews)
 import heroImage4 from "@/assets/hero/hero-4.jpeg";
 import heroImage1 from "@/assets/hero/hero-1.jpeg";
+// WebP — supported in 97%+ of browsers
+import heroImage4Webp from "@/assets/hero/hero-4.webp";
+import heroImage1Webp from "@/assets/hero/hero-1.webp";
+// AVIF — best compression, modern browsers
+import heroImage4Avif from "@/assets/hero/hero-4.avif";
+import heroImage1Avif from "@/assets/hero/hero-1.avif";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-const heroImages = [heroImage4, heroImage1];
+const heroImages = [
+  { jpeg: heroImage4, webp: heroImage4Webp, avif: heroImage4Avif },
+  { jpeg: heroImage1, webp: heroImage1Webp, avif: heroImage1Avif },
+];
 
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState<boolean[]>([true, false, false]);
   const { t } = useLanguage();
 
-  // Preload all hero images on mount
+  // Preload all hero images on mount (use the smallest format the browser supports — AVIF if available)
   useEffect(() => {
     heroImages.forEach((src, index) => {
       const img = new Image();
@@ -25,7 +32,8 @@ export default function HeroSection() {
           return next;
         });
       };
-      img.src = src;
+      // Browser will request whichever format works; AVIF first, fall back to webp/jpeg via <picture> below.
+      img.src = src.avif ?? src.webp ?? src.jpeg;
     });
   }, []);
 
@@ -60,14 +68,18 @@ export default function HeroSection() {
             }}
             className="absolute inset-0"
           >
-            <img 
-              src={image} 
-              alt="" 
-              className="h-full w-full object-cover" 
-              loading={index === 0 ? "eager" : "lazy"}
-              fetchpriority={index === 0 ? "high" : "auto"}
-              decoding={index === 0 ? "sync" : "async"}
-            />
+            <picture>
+              <source srcSet={image.avif} type="image/avif" />
+              <source srcSet={image.webp} type="image/webp" />
+              <img
+                src={image.jpeg}
+                alt=""
+                className="h-full w-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                decoding={index === 0 ? "sync" : "async"}
+              />
+            </picture>
           </motion.div>
         ))}
 

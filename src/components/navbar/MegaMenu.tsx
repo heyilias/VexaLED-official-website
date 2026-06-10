@@ -146,6 +146,8 @@ function ProductsMegaMenu({ item, onClose }: { item: NavItem; onClose: () => voi
                 src={previewImage}
                 alt={hoveredProduct?.title ?? ''}
                 className="h-full w-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
               />
               <div
                 className="absolute inset-0"
@@ -246,6 +248,8 @@ export default function MegaMenu({ item, onClose, onMouseEnter, onMouseLeave }: 
                                     src={subItem.image}
                                     alt={tItem?.title || subItem.title}
                                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    loading="lazy"
+                                    decoding="async"
                                   />
                                   <div
                                     className="absolute inset-0"
@@ -289,6 +293,8 @@ export default function MegaMenu({ item, onClose, onMouseEnter, onMouseLeave }: 
                                     src={subItem.image}
                                     alt={tItem?.title || subItem.title}
                                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    loading="lazy"
+                                    decoding="async"
                                   />
                                   <div
                                     className="absolute inset-0"

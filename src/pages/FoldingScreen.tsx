@@ -10,15 +10,15 @@ import SearchOverlay from "@/components/SearchOverlay";
 import VXFoldingScreenHero from "@/components/VXFoldingScreenHero";
 import ProductOverview from "@/components/ProductOverview";
 
-import ledPosterFront from "@/assets/products/led-screen/poster/front.png";
-import ledPosterBack from "@/assets/products/led-screen/poster/back.png";
-import ledPosterDetails from "@/assets/products/led-screen/poster/details.png";
-import ledPosterOther from "@/assets/products/led-screen/poster/other1.png";
-import shoppingImg from "@/assets/products/led-screen/poster/Shopping.png";
-import exhibitionImg from "@/assets/products/led-screen/poster/Exhibition.png";
-import hotelImg from "@/assets/products/led-screen/poster/Hotel.png";
+import ledPosterFront from "@/assets/products/led-screen/poster/front.webp";
+import ledPosterBack from "@/assets/products/led-screen/poster/back.webp";
+import ledPosterDetails from "@/assets/products/led-screen/poster/details.webp";
+import ledPosterOther from "@/assets/products/led-screen/poster/other1.webp";
+import shoppingImg from "@/assets/products/led-screen/poster/Shopping.webp";
+import exhibitionImg from "@/assets/products/led-screen/poster/Exhibition.webp";
+import hotelImg from "@/assets/products/led-screen/poster/Hotel.webp";
 import productVideo from "@/assets/products/led-screen/poster/video.webm";
-import ledPosterImg from "@/assets/products/led-screen/hero.png";
+import ledPosterImg from "@/assets/products/led-screen/hero.webp";
 
 const PREMIUM_EASE = [0.25, 0.1, 0.25, 1];
 const PREMIUM_DURATION = 1;

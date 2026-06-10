@@ -1,5 +1,5 @@
 import ledScreenImg from '@/assets/products/led-screen/hero.png';
-import ledPosterImg from '@/assets/products/led-screen/poster/front.png';
+import ledPosterImg from '@/assets/products/led-screen/poster/front.webp';
 
 export interface ProductVariantSpec {
   label: string;

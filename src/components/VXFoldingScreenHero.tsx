@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Shield, Zap, Layers, ArrowRight, Play } from "lucide-react";
 import heroPoster from "@/assets/hero/Hero_poster.webp";
-import heroProduct from "@/assets/products/led-screen/poster/hero_product.png";
+import heroProduct from "@/assets/products/led-screen/poster/hero_product.webp";
 
 const PREMIUM_EASE = [0.25, 0.1, 0.25, 1];
 

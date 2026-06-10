@@ -1,6 +1,7 @@
-import ledPosterImg from '@/assets/products/led-screen/hero.png';
-import ledPosterDetail1 from '@/assets/products/led-screen/detail-1.png';
-import ledPosterDetail2 from '@/assets/products/led-screen/detail-2.png';
+import ledPosterImg from '@/assets/products/led-screen/hero.webp';
+import ledPosterDetail1 from '@/assets/products/led-screen/detail-1.webp';
+import ledPosterDetail2 from '@/assets/products/led-screen/detail-2.webp';
+// detail-3 and detail-4 were already small enough to skip WebP conversion.
 import ledPosterDetail3 from '@/assets/products/led-screen/detail-3.png';
 import ledPosterDetail4 from '@/assets/products/led-screen/detail-4.png';
 

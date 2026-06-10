@@ -23,7 +23,8 @@ interface Product {
   name: string;
   subtitle: string;
   description: string;
-  image: string;
+  image: string;        // png fallback
+  imageWebp: string;    // optimized webp (modern browsers)
   specs: string[];
   link: string;
 }
@@ -45,6 +46,7 @@ const ProductsSection = () => {
     subtitle: p.subtitle,
     description: p.description,
     image: `/images/product-${i + 1}.png`,
+    imageWebp: `/images/product-${i + 1}.webp`,
     specs: p.specs,
     // Honour an explicit link on the product if translations provide one,
     // otherwise look it up by name, otherwise fall back to the LED Screens list.
@@ -186,12 +188,17 @@ const ProductsSection = () => {
                     {index === activeIndex && (
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-primary/5 pointer-events-none z-10" />
                     )}
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-contain bg-gradient-to-b from-card/80 to-[#0a0a0f]"
-                      draggable={false}
-                    />
+                    <picture>
+                      <source srcSet={product.imageWebp} type="image/webp" />
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-contain bg-gradient-to-b from-card/80 to-[#0a0a0f]"
+                        loading={index === activeIndex ? 'eager' : 'lazy'}
+                        decoding="async"
+                        draggable={false}
+                      />
+                    </picture>
                     {index === activeIndex && (
                       <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-primary/15 to-transparent pointer-events-none" />
                     )}

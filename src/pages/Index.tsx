@@ -1,15 +1,23 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, lazy, Suspense } from "react";
 import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import MarketCube from "@/components/MarketCube";
-import ParallaxGallery from "@/components/ParallaxGallery";
 import ProductsSection from "@/components/ProductsSection";
 import WhyChooseVexaLed from "@/components/WhyChooseVexaLed";
 import ContactFooter from "@/components/ContactFooter";
 import FloatingActions from "@/components/FloatingActions";
-import SearchOverlay from "@/components/SearchOverlay";
 import { AnimatePresence } from "framer-motion";
+
+// Below-the-fold / interaction-only — code-split for faster LCP.
+// MarketCube pulls in Three.js + R3F + drei (~700 KB); ParallaxGallery is GSAP-heavy.
+const MarketCube = lazy(() => import("@/components/MarketCube"));
+const ParallaxGallery = lazy(() => import("@/components/ParallaxGallery"));
+const SearchOverlay = lazy(() => import("@/components/SearchOverlay"));
+
+// Invisible placeholder that holds vertical space while a chunk loads, preventing layout shift.
+const LazyFallback = ({ minHeight = "60vh" }: { minHeight?: string }) => (
+  <div style={{ minHeight }} aria-hidden />
+);
 
 const Index = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -44,14 +52,24 @@ const Index = () => {
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
       <HeroSection />
-      <MarketCube />
+      <Suspense fallback={<LazyFallback minHeight="100vh" />}>
+        <MarketCube />
+      </Suspense>
       <ProductsSection />
       <WhyChooseVexaLed />
-      <ParallaxGallery />
+      <Suspense fallback={<LazyFallback minHeight="80vh" />}>
+        <ParallaxGallery />
+      </Suspense>
       <ContactFooter />
       <FloatingActions />
 
-      <AnimatePresence>{isSearchOpen && <SearchOverlay isOpen={isSearchOpen} onClose={closeSearch} />}</AnimatePresence>
+      <AnimatePresence>
+        {isSearchOpen && (
+          <Suspense fallback={null}>
+            <SearchOverlay isOpen={isSearchOpen} onClose={closeSearch} />
+          </Suspense>
+        )}
+      </AnimatePresence>
     </main>
   );
 };
