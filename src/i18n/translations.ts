@@ -404,7 +404,7 @@ const en: Translations = {
     solutions: 'Solutions',
     about: 'About',
     followUs: 'Follow Us',
-    copyright: '© 2025 VEXALED. All rights reserved.',
+    copyright: '© 2026 VEXALED. All rights reserved.',
     terms: 'Terms of Use',
     privacy: 'Privacy',
     aboutLinks: [
@@ -445,7 +445,7 @@ const en: Translations = {
   },
   whyChoose: {
     sectionLabel: 'WHY CHOOSE US',
-    sectionTitle: 'Why Choose VexaLed',
+    sectionTitle: 'Why Choose VEXALED',
     statCards: [
       { label: 'Years Experience', description: 'Industry-leading expertise in LED technology' },
       { label: 'Global Projects', description: 'Successful installations worldwide' },
@@ -502,7 +502,7 @@ const en: Translations = {
     addressLabel: 'Address',
     ctaTitle: 'Start a Project',
     ctaDescription: 'Tell us about your LED display needs and get a custom quote.',
-    copyrightText: '© 2025 VexaLed. All rights reserved.',
+    copyrightText: '© 2026 VEXALED. All rights reserved.',
     bottomLinks: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
   },
 };
@@ -690,7 +690,7 @@ const zh: Translations = {
     solutions: '解决方案',
     about: '关于',
     followUs: '关注我们',
-    copyright: '© 2025 VEXALED. 保留所有权利。',
+    copyright: '© 2026 VEXALED. 保留所有权利。',
     terms: '使用条款',
     privacy: '隐私政策',
     aboutLinks: [
@@ -731,7 +731,7 @@ const zh: Translations = {
   },
   whyChoose: {
     sectionLabel: '为什么选择我们',
-    sectionTitle: '为什么选择 VexaLed',
+    sectionTitle: '为什么选择 VEXALED',
     statCards: [
       { label: '年经验', description: '行业领先的 LED 技术专业知识' },
       { label: '全球项目', description: '全球成功安装' },
@@ -792,7 +792,7 @@ const zh: Translations = {
     addressLabel: '地址',
     ctaTitle: '开始项目',
     ctaDescription: '告诉我们您的 LED 显示需求，获取定制报价。',
-    copyrightText: '© 2025 VexaLed. 保留所有权利。',
+    copyrightText: '© 2026 VEXALED. 保留所有权利。',
     bottomLinks: ['隐私政策', '服务条款', 'Cookie 政策'],
   },
 };
@@ -980,7 +980,7 @@ const es: Translations = {
     solutions: 'Soluciones',
     about: 'Acerca de',
     followUs: 'Síguenos',
-    copyright: '© 2025 VEXALED. Todos los derechos reservados.',
+    copyright: '© 2026 VEXALED. Todos los derechos reservados.',
     terms: 'Términos de Uso',
     privacy: 'Privacidad',
     aboutLinks: [
@@ -1021,7 +1021,7 @@ const es: Translations = {
   },
   whyChoose: {
     sectionLabel: 'POR QUÉ ELEGIRNOS',
-    sectionTitle: '¿Por Qué Elegir VexaLed?',
+    sectionTitle: '¿Por Qué Elegir VEXALED?',
     statCards: [
       { label: 'Años de Experiencia', description: 'Experiencia líder en tecnología LED' },
       { label: 'Proyectos Globales', description: 'Instalaciones exitosas en todo el mundo' },
@@ -1082,7 +1082,7 @@ const es: Translations = {
     addressLabel: 'Dirección',
     ctaTitle: 'Iniciar un Proyecto',
     ctaDescription: 'Cuéntenos sus necesidades de pantallas LED y obtenga un presupuesto personalizado.',
-    copyrightText: '© 2025 VexaLed. Todos los derechos reservados.',
+    copyrightText: '© 2026 VEXALED. Todos los derechos reservados.',
     bottomLinks: ['Política de Privacidad', 'Términos de Servicio', 'Política de Cookies'],
   },
 };
@@ -1270,7 +1270,7 @@ const fr: Translations = {
     solutions: 'Solutions',
     about: 'À Propos',
     followUs: 'Suivez-nous',
-    copyright: '© 2025 VEXALED. Tous droits réservés.',
+    copyright: '© 2026 VEXALED. Tous droits réservés.',
     terms: 'Conditions d\'Utilisation',
     privacy: 'Confidentialité',
     aboutLinks: [
@@ -1311,7 +1311,7 @@ const fr: Translations = {
   },
   whyChoose: {
     sectionLabel: 'POURQUOI NOUS CHOISIR',
-    sectionTitle: 'Pourquoi Choisir VexaLed',
+    sectionTitle: 'Pourquoi Choisir VEXALED',
     statCards: [
       { label: 'Années d\'Expérience', description: 'Expertise de pointe en technologie LED' },
       { label: 'Projets Mondiaux', description: 'Installations réussies dans le monde entier' },
@@ -1372,7 +1372,7 @@ const fr: Translations = {
     addressLabel: 'Adresse',
     ctaTitle: 'Démarrer un Projet',
     ctaDescription: 'Dites-nous vos besoins en affichage LED et obtenez un devis personnalisé.',
-    copyrightText: '© 2025 VexaLed. Tous droits réservés.',
+    copyrightText: '© 2026 VEXALED. Tous droits réservés.',
     bottomLinks: ['Politique de Confidentialité', 'Conditions d\'Utilisation', 'Politique de Cookies'],
   },
 };
@@ -1560,7 +1560,7 @@ const ar: Translations = {
     solutions: 'الحلول',
     about: 'حول',
     followUs: 'تابعنا',
-    copyright: '© 2025 VEXALED. جميع الحقوق محفوظة.',
+    copyright: '© 2026 VEXALED. جميع الحقوق محفوظة.',
     terms: 'شروط الاستخدام',
     privacy: 'الخصوصية',
     aboutLinks: [
@@ -1601,7 +1601,7 @@ const ar: Translations = {
   },
   whyChoose: {
     sectionLabel: 'لماذا تختارنا',
-    sectionTitle: 'لماذا تختار VexaLed',
+    sectionTitle: 'لماذا تختار VEXALED',
     statCards: [
       { label: 'سنوات خبرة', description: 'خبرة رائدة في تقنية LED' },
       { label: 'مشاريع عالمية', description: 'تركيبات ناجحة حول العالم' },
@@ -1662,7 +1662,7 @@ const ar: Translations = {
     addressLabel: 'العنوان',
     ctaTitle: 'ابدأ مشروعاً',
     ctaDescription: 'أخبرنا عن احتياجاتك من شاشات LED واحصل على عرض أسعار مخصص.',
-    copyrightText: '© 2025 VexaLed. جميع الحقوق محفوظة.',
+    copyrightText: '© 2026 VEXALED. جميع الحقوق محفوظة.',
     bottomLinks: ['سياسة الخصوصية', 'شروط الخدمة', 'سياسة ملفات تعريف الارتباط'],
   },
 };

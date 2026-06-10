@@ -231,8 +231,8 @@ export default function AboutIndex() {
   return (
     <main className="min-h-screen bg-[#0a0a0f] overflow-x-hidden">
       <SEOHead
-        title="About VexaLED"
-        description="Discover VexaLED — a global LED display company built on engineering excellence, precision manufacturing, and long-term partnerships across 50+ countries."
+        title="About VEXALED"
+        description="Discover VEXALED — a global LED display company built on engineering excellence, precision manufacturing, and long-term partnerships across 50+ countries."
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

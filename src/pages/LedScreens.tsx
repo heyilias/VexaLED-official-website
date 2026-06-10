@@ -51,7 +51,7 @@ const LedScreens = () => {
     <main id="main-content" className="min-h-screen bg-[#0a0a0f]">
       <SEOHead
         title="LED Screen Products"
-        description="Browse VexaLED's complete range of professional LED screen products — indoor fine pitch, outdoor rental, poster displays, and more."
+        description="Browse VEXALED's complete range of professional LED screen products — indoor fine pitch, outdoor rental, poster displays, and more."
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

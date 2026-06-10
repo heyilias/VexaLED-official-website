@@ -241,7 +241,7 @@ const featureIcons = [
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "VexaLED",
+  "name": "VEXALED",
   "url": "https://vexaled.com",
 };
 

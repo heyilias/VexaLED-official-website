@@ -32,7 +32,7 @@ const About = () => {
     <main className="min-h-screen bg-background">
       <SEOHead
         title={page.title}
-        description={page.longDescription ?? `Learn about VexaLED — ${page.title}. Discover our engineering expertise and commitment to world-class LED display solutions.`}
+        description={page.longDescription ?? `Learn about VEXALED — ${page.title}. Discover our engineering expertise and commitment to world-class LED display solutions.`}
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

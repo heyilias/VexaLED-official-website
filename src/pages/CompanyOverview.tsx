@@ -60,7 +60,7 @@ const CompanyOverview = () => {
     <main className="min-h-screen bg-background font-sans selection:bg-primary/20">
       <SEOHead
         title="Company Overview"
-        description="Learn about VexaLED — a global leader in professional LED display solutions. Discover our engineering expertise, values, and commitment to delivering world-class visual experiences."
+        description="Learn about VEXALED — a global leader in professional LED display solutions. Discover our engineering expertise, values, and commitment to delivering world-class visual experiences."
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

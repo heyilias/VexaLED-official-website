@@ -15,7 +15,7 @@ const LightingPlaceholder = () => {
     <main id="main-content" className="min-h-screen bg-[#0a0a0f]">
       <SEOHead
         title="Lighting Products"
-        description="VexaLED's professional lighting product line is coming soon. Stay tuned for innovative LED lighting solutions."
+        description="VEXALED's professional lighting product line is coming soon. Stay tuned for innovative LED lighting solutions."
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 
@@ -85,7 +85,7 @@ const LightingPlaceholder = () => {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.55 }}
             className="mb-12 max-w-md text-base leading-relaxed text-white/35"
           >
-            Our lighting product line is coming soon. VexaLED is developing a new range of professional LED lighting solutions — engineered to the same standards as our display products.
+            Our lighting product line is coming soon. VEXALED is developing a new range of professional LED lighting solutions — engineered to the same standards as our display products.
           </motion.p>
 
           <motion.div

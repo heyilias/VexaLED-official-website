@@ -139,7 +139,7 @@ const ContactFooter = () => {
               {/* Brand */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <img src={footerConfig.logoImage} alt="VexaLed" className="h-8 w-auto max-w-[180px]" />
+                  <img src={footerConfig.logoImage} alt="VEXALED" className="h-8 w-auto max-w-[180px]" />
                 </div>
                 <p className="text-sm text-foreground/50 leading-relaxed mb-6">{t.contactFooter.brandDescription}</p>
                 <div className="flex flex-wrap gap-2">

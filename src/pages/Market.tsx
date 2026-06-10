@@ -41,7 +41,7 @@ const Market = () => {
     <main ref={containerRef} className="min-h-screen bg-[#0a0a0f]">
       <SEOHead
         title={`${market.title} LED Displays`}
-        description={market.description ?? `Explore VexaLED's LED display solutions for ${market.title}. High-brightness, reliable screens engineered for professional environments.`}
+        description={market.description ?? `Explore VEXALED's LED display solutions for ${market.title}. High-brightness, reliable screens engineered for professional environments.`}
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

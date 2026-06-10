@@ -39,7 +39,7 @@ const AboutManufacturing = () => {
     <main className="min-h-screen bg-black font-sans selection:bg-primary/20 text-foreground">
       <SEOHead
         title="LED Display Manufacturing"
-        description="Explore VexaLED's state-of-the-art LED display manufacturing facilities. ISO 9001 certified production with full component traceability and rigorous quality testing."
+        description="Explore VEXALED's state-of-the-art LED display manufacturing facilities. ISO 9001 certified production with full component traceability and rigorous quality testing."
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

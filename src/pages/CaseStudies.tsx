@@ -39,7 +39,7 @@ const CaseStudies = () => {
     <main className="min-h-screen bg-background">
       <SEOHead
         title="LED Display Case Studies"
-        description="Explore VexaLED's real-world LED display installations across retail, corporate, sports, and entertainment venues worldwide."
+        description="Explore VEXALED's real-world LED display installations across retail, corporate, sports, and entertainment venues worldwide."
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

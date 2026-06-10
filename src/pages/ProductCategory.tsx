@@ -80,7 +80,7 @@ const ProductCategory = () => {
     <main className="min-h-screen bg-background">
       <SEOHead
         title={`${categoryData.name} LED Displays`}
-        description={categoryData.description ?? `Browse VexaLED's ${categoryData.name} LED display range. Professional-grade screens with industry-leading brightness, resolution, and reliability.`}
+        description={categoryData.description ?? `Browse VEXALED's ${categoryData.name} LED display range. Professional-grade screens with industry-leading brightness, resolution, and reliability.`}
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

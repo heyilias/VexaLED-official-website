@@ -351,7 +351,7 @@ const Product = () => {
     "@type": "Product",
     "name": product.title,
     "description": product.tagline,
-    "brand": { "@type": "Brand", "name": "VexaLED" },
+    "brand": { "@type": "Brand", "name": "VEXALED" },
     "category": product.category,
     "image": product.heroImage,
   };

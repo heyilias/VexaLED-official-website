@@ -8,7 +8,7 @@ export function useNewsletter() {
     mutationFn: (data: NewsletterData) => submitNewsletter(data),
     onSuccess: (result) => {
       if (result.success) {
-        toast.success(result.message ?? 'You\'re subscribed! Welcome to the VexaLED newsletter.');
+        toast.success(result.message ?? 'You\'re subscribed! Welcome to the VEXALED newsletter.');
       } else {
         toast.error(result.message ?? 'Failed to subscribe. Please try again.');
       }

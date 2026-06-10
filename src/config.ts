@@ -67,7 +67,7 @@ export const parallaxGalleryConfig = {
 
 export const whyChooseConfig = {
   sectionLabel: "WHY CHOOSE US",
-  sectionTitle: "Why Choose VexaLed",
+  sectionTitle: "Why Choose VEXALED",
   statCards: [
     {
       id: 1,
@@ -108,7 +108,7 @@ export const footerConfig = {
   heroSubtitle: "ABOUT YOUR PROJECT",
   ctaButtonText: "CONTACT US",
   portraitImage: showroomImage,
-  portraitAlt: "VexaLed showroom",
+  portraitAlt: "VEXALED showroom",
   companyLabel: "COMPANY",
   companyName: "VEXALED",
   companySubtitle: "Global LED Solutions Provider",
@@ -135,6 +135,6 @@ export const footerConfig = {
   ctaTitle: "Start a Project",
   ctaDescription: "Tell us about your LED display needs and get a custom quote.",
   subscribeAlertMessage: "Thank you for your interest! Our team will contact you shortly.",
-  copyrightText: "© 2025 VexaLed. All rights reserved.",
+  copyrightText: "© 2026 VEXALED. All rights reserved.",
   bottomLinks: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
 };

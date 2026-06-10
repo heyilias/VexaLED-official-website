@@ -9,7 +9,7 @@ interface SEOHeadProps {
 }
 
 const SEOHead = ({ title, description, ogImage, ogUrl, jsonLd }: SEOHeadProps) => {
-  const fullTitle = `${title} — VexaLED`;
+  const fullTitle = `${title} — VEXALED`;
   const defaultOgImage = '/og-image.png';
 
   return (

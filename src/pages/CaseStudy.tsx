@@ -41,8 +41,8 @@ const CaseStudy = () => {
     "headline": study.title,
     "description": study.description,
     "image": study.image,
-    "author": { "@type": "Organization", "name": "VexaLED" },
-    "publisher": { "@type": "Organization", "name": "VexaLED", "logo": { "@type": "ImageObject", "url": "https://vexaled.com/og-image.png" } },
+    "author": { "@type": "Organization", "name": "VEXALED" },
+    "publisher": { "@type": "Organization", "name": "VEXALED", "logo": { "@type": "ImageObject", "url": "https://vexaled.com/og-image.png" } },
     "datePublished": "2024-01-01",
   };
 

@@ -37,7 +37,7 @@ const AboutSustainability = () => {
     <main className="min-h-screen bg-[#0a0a0a] font-sans selection:bg-emerald-500/20 text-foreground">
       <SEOHead
         title="Sustainability & Green LED Technology"
-        description="VexaLED's commitment to sustainable LED display manufacturing. Energy-efficient designs, responsible sourcing, and reduced environmental impact across our product range."
+        description="VEXALED's commitment to sustainable LED display manufacturing. Energy-efficient designs, responsible sourcing, and reduced environmental impact across our product range."
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />
 

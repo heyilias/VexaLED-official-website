@@ -66,7 +66,7 @@ export default function Blog() {
     <main className="min-h-screen bg-background">
       <SEOHead
         title="LED Display Knowledge Hub"
-        description="Explore VexaLED's blog for the latest insights on LED technology, smart displays, product updates, and industry case studies."
+        description="Explore VEXALED's blog for the latest insights on LED technology, smart displays, product updates, and industry case studies."
         jsonLd={breadcrumbJsonLd}
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />

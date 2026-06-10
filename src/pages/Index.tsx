@@ -32,10 +32,10 @@ const Index = () => {
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "VexaLED",
+    "name": "VEXALED",
     "url": "https://vexaled.com",
     "logo": "https://vexaled.com/og-image.png",
-    "description": "VexaLED delivers cutting-edge LED display technology for indoor and outdoor applications.",
+    "description": "VEXALED delivers cutting-edge LED display technology for indoor and outdoor applications.",
     "sameAs": [
       "https://www.linkedin.com/company/vexaled",
       "https://twitter.com/vexaled"
@@ -51,7 +51,7 @@ const Index = () => {
     <main id="main-content" className="min-h-screen bg-background">
       <SEOHead
         title="Premium LED Display Solutions"
-        description="VexaLED delivers cutting-edge LED display technology for indoor and outdoor applications. Explore our full range of high-brightness, energy-efficient LED screens."
+        description="VEXALED delivers cutting-edge LED display technology for indoor and outdoor applications. Explore our full range of high-brightness, energy-efficient LED screens."
         jsonLd={organizationJsonLd}
       />
       <Navbar onSearchClick={openSearch} isSearchOpen={isSearchOpen} onCloseSearch={closeSearch} />

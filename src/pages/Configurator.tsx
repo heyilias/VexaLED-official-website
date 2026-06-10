@@ -48,7 +48,7 @@ export default function Configurator() {
       <Navbar onSearchClick={() => setIsSearchOpen(true)} isSearchOpen={isSearchOpen} onCloseSearch={() => setIsSearchOpen(false)} />
       <SEOHead
         title="LED Display Configurator"
-        description="Configure your ideal VexaLED display solution. Select installation type, pixel pitch, brightness, and shape to find the perfect LED screen for your project."
+        description="Configure your ideal VEXALED display solution. Select installation type, pixel pitch, brightness, and shape to find the perfect LED screen for your project."
       />
 
       <div className="pt-20 pb-16 px-6 md:px-12 lg:px-24">
