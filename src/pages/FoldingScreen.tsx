@@ -145,6 +145,9 @@ const VariantCard = ({ name, pixelPitch, brightness, cabinetSize, weight, index,
 const DownloadCard = ({ title, type, size, index }: { title: string; type: string; size: string; index: number }) => (
   <motion.a
     href="#"
+    onClick={(e) => e.preventDefault()}
+    aria-disabled="true"
+    title="Datasheet coming soon"
     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
     transition={{ duration: 0.5, delay: index * 0.1, ease: PREMIUM_EASE }}
     className="group flex items-center gap-4 rounded-xl border border-white/[0.06] p-5 transition-all duration-300 hover:border-white/20"

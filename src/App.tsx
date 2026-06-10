@@ -21,6 +21,7 @@ const LedScreens = lazy(() => import("./pages/LedScreens"));
 const LedScreenProduct = lazy(() => import("./pages/LedScreenProduct"));
 const LightingPlaceholder = lazy(() => import("./pages/LightingPlaceholder"));
 const Product = lazy(() => import("./pages/Product"));
+const LegalPlaceholder = lazy(() => import("./pages/LegalPlaceholder"));
 
 const queryClient = new QueryClient();
 
@@ -80,6 +81,11 @@ const App = () => (
             <Route path="/products/led-screens/outdoor-inline" element={<Navigate to="/products/led-screens/outdoor-fixed" replace />} />
             {/* Legacy poster redirect */}
             <Route path="/products/led-screen/vx-led-poster" element={<Navigate to="/products/led-screens/led-poster-display" replace />} />
+            {/* Legal placeholders (Privacy / Terms / Cookies / Impressum) — real content lands in Phase B */}
+            <Route path="/legal/:slug" element={<LegalPlaceholder />} />
+            <Route path="/legal" element={<Navigate to="/legal/privacy" replace />} />
+            {/* /support placeholder until a dedicated page exists */}
+            <Route path="/support" element={<Navigate to="/about" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

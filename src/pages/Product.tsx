@@ -253,6 +253,9 @@ interface DownloadCardProps {
 const DownloadCard = ({ title, type, size, index }: DownloadCardProps) => (
   <motion.a
     href="#"
+    onClick={(e) => e.preventDefault()}
+    aria-disabled="true"
+    title="Datasheet coming soon"
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}

@@ -35,7 +35,11 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }} className="fixed left-0 right-0 top-0 z-[101] bg-surface-dark/95 backdrop-blur-xl border-b border-border/20">
         <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between px-4 md:px-6 lg:px-10">
-          <a href="#" className="flex items-center gap-2.5 shrink-0">
+          <a
+            href="/"
+            onClick={(e) => { e.preventDefault(); onClose(); window.location.href = '/'; }}
+            className="flex items-center gap-2.5 shrink-0"
+          >
             <img src={vexaledLogo} alt="VEXALED" className="h-9 w-auto" />
             <span className="hidden text-base font-medium tracking-[0.08em] text-foreground sm:block">VEXALED</span>
           </a>

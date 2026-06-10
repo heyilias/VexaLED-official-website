@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Instagram, Youtube, Linkedin, Mail, MapPin, ExternalLink, ArrowRight, MessageCircle, Facebook } from 'lucide-react';
@@ -7,6 +8,19 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import contactBg from '@/assets/contact-bg.jpg';
 import { Button } from '@/components/ui/button';
 import InquiryModal from './InquiryModal';
+
+// Map the Quick Links array (in config order — same across languages) to real routes.
+// Order in config.ts: 'Products', 'Markets', 'Gallery', 'About Us', 'Contact'.
+const QUICK_LINK_ROUTES = [
+  '/products/led-screens',
+  '/market/sports',
+  '/case-studies',
+  '/about',
+  '#contact',
+];
+
+// Bottom legal links (Privacy, Terms, Cookies) → placeholder route. Full content lands in Phase B.
+const LEGAL_SLUGS = ['privacy', 'terms', 'cookies'];
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -142,14 +156,25 @@ const ContactFooter = () => {
               <div>
                 <h4 className="font-display text-sm uppercase tracking-wider text-foreground mb-6">{t.contactFooter.quickLinksTitle}</h4>
                 <ul className="space-y-3">
-                  {t.contactFooter.quickLinks.map((link) => (
-                    <li key={link}>
-                      <a href="#" className="text-sm text-foreground/50 hover:text-primary transition-colors flex items-center gap-2 group">
-                        <span>{link}</span>
-                        <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </a>
-                    </li>
-                  ))}
+                  {t.contactFooter.quickLinks.map((link, i) => {
+                    const target = QUICK_LINK_ROUTES[i] ?? '/';
+                    const className = 'text-sm text-foreground/50 hover:text-primary transition-colors flex items-center gap-2 group';
+                    return (
+                      <li key={link}>
+                        {target.startsWith('#') ? (
+                          <a href={target} className={className}>
+                            <span>{link}</span>
+                            <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </a>
+                        ) : (
+                          <Link to={target} className={className}>
+                            <span>{link}</span>
+                            <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
@@ -253,8 +278,14 @@ const ContactFooter = () => {
             <div className="pt-8 border-t border-foreground/5 flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-xs text-foreground/30 font-tech">{t.contactFooter.copyrightText}</p>
               <div className="flex gap-6">
-                {t.contactFooter.bottomLinks.map((link) => (
-                  <a key={link} href="#" className="text-xs text-foreground/30 hover:text-primary transition-colors">{link}</a>
+                {t.contactFooter.bottomLinks.map((link, i) => (
+                  <Link
+                    key={link}
+                    to={`/legal/${LEGAL_SLUGS[i] ?? 'privacy'}`}
+                    className="text-xs text-foreground/30 hover:text-primary transition-colors"
+                  >
+                    {link}
+                  </Link>
                 ))}
               </div>
             </div>
