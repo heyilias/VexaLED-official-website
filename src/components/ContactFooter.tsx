@@ -8,6 +8,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import contactBg from '@/assets/contact-bg.jpg';
 import { Button } from '@/components/ui/button';
 import InquiryModal from './InquiryModal';
+import { openCookiePreferences } from '@/lib/cookieConsent';
 
 // Map the Quick Links array (in config order — same across languages) to real routes.
 // Order in config.ts: 'Products', 'Markets', 'Gallery', 'About Us', 'Contact'.
@@ -287,6 +288,13 @@ const ContactFooter = () => {
                     {link}
                   </Link>
                 ))}
+                <button
+                  type="button"
+                  onClick={openCookiePreferences}
+                  className="text-xs text-foreground/30 hover:text-primary transition-colors"
+                >
+                  Cookie preferences
+                </button>
               </div>
             </div>
           </div>
