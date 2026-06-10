@@ -4,14 +4,18 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProductsSection from "@/components/ProductsSection";
 import WhyChooseVexaLed from "@/components/WhyChooseVexaLed";
+// ParallaxGallery uses GSAP ScrollTrigger pinning + dynamic scrollWidth measurement.
+// Lazy-loading made it mount AFTER initial layout, so its measurements were stale and
+// its "Blogs" gallery title bled into the section above. Keep it eager.
+import ParallaxGallery from "@/components/ParallaxGallery";
 import ContactFooter from "@/components/ContactFooter";
 import FloatingActions from "@/components/FloatingActions";
 import { AnimatePresence } from "framer-motion";
 
-// Below-the-fold / interaction-only — code-split for faster LCP.
-// MarketCube pulls in Three.js + R3F + drei (~700 KB); ParallaxGallery is GSAP-heavy.
+// MarketCube pulls Three.js + R3F + drei (~864 KB) — biggest single chunk, lazy is safe
+// because it's a self-contained canvas (no scroll pinning that depends on outer layout).
 const MarketCube = lazy(() => import("@/components/MarketCube"));
-const ParallaxGallery = lazy(() => import("@/components/ParallaxGallery"));
+// SearchOverlay only mounts when the user opens search — always lazy.
 const SearchOverlay = lazy(() => import("@/components/SearchOverlay"));
 
 // Invisible placeholder that holds vertical space while a chunk loads, preventing layout shift.
@@ -57,9 +61,7 @@ const Index = () => {
       </Suspense>
       <ProductsSection />
       <WhyChooseVexaLed />
-      <Suspense fallback={<LazyFallback minHeight="80vh" />}>
-        <ParallaxGallery />
-      </Suspense>
+      <ParallaxGallery />
       <ContactFooter />
       <FloatingActions />
 

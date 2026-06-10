@@ -169,7 +169,7 @@ const brandPillars = [
 const values = [
   { icon: Target, title: "Precision", desc: "Pixel-perfect execution in everything we build." },
   { icon: Lightbulb, title: "Innovation", desc: "Pushing boundaries of what's possible with LED." },
-  { icon: Globe, title: "Global Vision", desc: "Designed in Europe. Built for the world." },
+  { icon: Globe, title: "Global Vision", desc: "Engineered in Foshan, Guangdong. Built for the world." },
   { icon: Award, title: "Excellence", desc: "No compromise on quality, ever." },
 ];
 

@@ -25,6 +25,8 @@ export default function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', country: '',
     jobTitle: '', productSolution: '', verificationCode: '', message: '',
+    // Hidden honeypot — must stay empty. Bots fill it; we drop those submissions.
+    hp_company_website: '',
   });
 
   const refreshCaptcha = useCallback(() => setCaptcha(generateCaptcha()), []);
@@ -49,14 +51,18 @@ export default function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
       refreshCaptcha();
       return;
     }
-    await contactForm.mutateAsync({
+    const result = await contactForm.mutateAsync({
       name: `${form.firstName} ${form.lastName}`.trim(),
       email: form.email,
-      company: form.jobTitle,
-      message: `Product: ${form.productSolution || 'N/A'}\nCountry: ${form.country}\n\n${form.message}`,
+      country: form.country,
+      jobTitle: form.jobTitle,
+      productInterest: form.productSolution,
+      message: form.message,
+      source: 'inquiry-modal',
+      hp_company_website: form.hp_company_website,
     });
-    if (!contactForm.isError) {
-      setForm({ firstName: '', lastName: '', email: '', country: '', jobTitle: '', productSolution: '', verificationCode: '', message: '' });
+    if (result?.success) {
+      setForm({ firstName: '', lastName: '', email: '', country: '', jobTitle: '', productSolution: '', verificationCode: '', message: '', hp_company_website: '' });
       refreshCaptcha();
       onClose();
     }
@@ -100,6 +106,19 @@ export default function InquiryModal({ isOpen, onClose }: InquiryModalProps) {
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Honeypot — visually & semantically hidden, but visible to bots.
+                  Must stay empty for the submission to be accepted. */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
+                <label>Company website (leave empty)</label>
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.hp_company_website}
+                  onChange={handleChange('hp_company_website')}
+                />
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5 block">{t.inquiry?.firstName || 'First Name'}</label>

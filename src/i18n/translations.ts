@@ -309,8 +309,8 @@ const en: Translations = {
   },
   trustBar: {
     items: [
-      { value: '18+', label: 'Years Experience' },
-      { value: '120+', label: 'Countries Served' },
+      { value: '20+', label: 'Years Experience' },
+      { value: '50+', label: 'Countries Served' },
       { value: 'Pro', label: 'Engineering Team' },
       { value: 'ISO', label: 'Quality Certified' },
     ],
@@ -346,8 +346,8 @@ const en: Translations = {
       { title: 'Professional Service & Support', description: 'Comprehensive warranty coverage and responsive technical support team available across all time zones.' },
     ],
     credentials: [
-      { value: '18+', label: 'Years Experience' },
-      { value: '120+', label: 'Countries Served' },
+      { value: '20+', label: 'Years Experience' },
+      { value: '50+', label: 'Countries Served' },
       { value: 'Pro', label: 'Engineering Team' },
       { value: 'ISO', label: 'Quality Certified' },
     ],
@@ -399,7 +399,7 @@ const en: Translations = {
     badges: ['Free Consultation', 'No Commitment', '48h Response'],
   },
   footer: {
-    description: 'Premium COB LED display technology and visual systems for demanding applications worldwide. Engineering excellence since 2006.',
+    description: 'Premium COB LED display technology and visual systems for demanding applications worldwide. Engineered by a team with 20+ years of LED display expertise.',
     products: 'Products',
     solutions: 'Solutions',
     about: 'About',
@@ -592,8 +592,8 @@ const zh: Translations = {
   },
   trustBar: {
     items: [
-      { value: '18+', label: '年经验' },
-      { value: '120+', label: '服务国家' },
+      { value: '20+', label: '年经验' },
+      { value: '50+', label: '服务国家' },
       { value: 'Pro', label: '工程团队' },
       { value: 'ISO', label: '质量认证' },
     ],
@@ -629,8 +629,8 @@ const zh: Translations = {
       { title: '专业服务与支持', description: '全面的保修覆盖和响应迅速的技术支持团队，覆盖所有时区。' },
     ],
     credentials: [
-      { value: '18+', label: '年经验' },
-      { value: '120+', label: '服务国家' },
+      { value: '20+', label: '年经验' },
+      { value: '50+', label: '服务国家' },
       { value: 'Pro', label: '工程团队' },
       { value: 'ISO', label: '质量认证' },
     ],
@@ -685,7 +685,7 @@ const zh: Translations = {
     badges: ['免费咨询', '无需承诺', '48小时响应'],
   },
   footer: {
-    description: '面向全球高要求应用的高端 COB LED 显示技术和视觉系统。自 2006 年以来的卓越工程。',
+    description: '面向全球高要求应用的高端 COB LED 显示技术和视觉系统。由拥有 20 多年 LED 显示技术经验的团队倾力打造。',
     products: '产品',
     solutions: '解决方案',
     about: '关于',
@@ -882,8 +882,8 @@ const es: Translations = {
   },
   trustBar: {
     items: [
-      { value: '18+', label: 'Años de Experiencia' },
-      { value: '120+', label: 'Países Atendidos' },
+      { value: '20+', label: 'Años de Experiencia' },
+      { value: '50+', label: 'Países Atendidos' },
       { value: 'Pro', label: 'Equipo de Ingeniería' },
       { value: 'ISO', label: 'Calidad Certificada' },
     ],
@@ -919,8 +919,8 @@ const es: Translations = {
       { title: 'Servicio y Soporte Profesional', description: 'Cobertura de garantía completa y equipo de soporte técnico disponible en todas las zonas horarias.' },
     ],
     credentials: [
-      { value: '18+', label: 'Años de Experiencia' },
-      { value: '120+', label: 'Países Atendidos' },
+      { value: '20+', label: 'Años de Experiencia' },
+      { value: '50+', label: 'Países Atendidos' },
       { value: 'Pro', label: 'Equipo de Ingeniería' },
       { value: 'ISO', label: 'Calidad Certificada' },
     ],
@@ -975,7 +975,7 @@ const es: Translations = {
     badges: ['Consulta Gratuita', 'Sin Compromiso', 'Respuesta en 48h'],
   },
   footer: {
-    description: 'Tecnología premium de pantallas COB LED y sistemas visuales para aplicaciones exigentes en todo el mundo. Excelencia en ingeniería desde 2006.',
+    description: 'Tecnología premium de pantallas COB LED y sistemas visuales para aplicaciones exigentes en todo el mundo. Diseñado por un equipo con más de 20 años de experiencia en pantallas LED.',
     products: 'Productos',
     solutions: 'Soluciones',
     about: 'Acerca de',
@@ -1172,8 +1172,8 @@ const fr: Translations = {
   },
   trustBar: {
     items: [
-      { value: '18+', label: 'Années d\'Expérience' },
-      { value: '120+', label: 'Pays Desservis' },
+      { value: '20+', label: 'Années d\'Expérience' },
+      { value: '50+', label: 'Pays Desservis' },
       { value: 'Pro', label: 'Équipe d\'Ingénierie' },
       { value: 'ISO', label: 'Qualité Certifiée' },
     ],
@@ -1209,8 +1209,8 @@ const fr: Translations = {
       { title: 'Service & Support Professionnel', description: 'Couverture de garantie complète et équipe de support technique disponible dans tous les fuseaux horaires.' },
     ],
     credentials: [
-      { value: '18+', label: 'Années d\'Expérience' },
-      { value: '120+', label: 'Pays Desservis' },
+      { value: '20+', label: 'Années d\'Expérience' },
+      { value: '50+', label: 'Pays Desservis' },
       { value: 'Pro', label: 'Équipe d\'Ingénierie' },
       { value: 'ISO', label: 'Qualité Certifiée' },
     ],
@@ -1265,7 +1265,7 @@ const fr: Translations = {
     badges: ['Consultation Gratuite', 'Sans Engagement', 'Réponse en 48h'],
   },
   footer: {
-    description: 'Technologie d\'affichage COB LED premium et systèmes visuels pour les applications exigeantes dans le monde entier. Excellence en ingénierie depuis 2006.',
+    description: 'Technologie d\'affichage COB LED premium et systèmes visuels pour les applications exigeantes dans le monde entier. Conçu par une équipe forte de 20 ans d\'expertise en affichage LED.',
     products: 'Produits',
     solutions: 'Solutions',
     about: 'À Propos',
@@ -1462,8 +1462,8 @@ const ar: Translations = {
   },
   trustBar: {
     items: [
-      { value: '18+', label: 'سنوات خبرة' },
-      { value: '120+', label: 'دولة مخدومة' },
+      { value: '20+', label: 'سنوات خبرة' },
+      { value: '50+', label: 'دولة مخدومة' },
       { value: 'Pro', label: 'فريق هندسي' },
       { value: 'ISO', label: 'جودة معتمدة' },
     ],
@@ -1499,8 +1499,8 @@ const ar: Translations = {
       { title: 'خدمة ودعم احترافي', description: 'تغطية ضمان شاملة وفريق دعم تقني متاح في جميع المناطق الزمنية.' },
     ],
     credentials: [
-      { value: '18+', label: 'سنوات خبرة' },
-      { value: '120+', label: 'دولة مخدومة' },
+      { value: '20+', label: 'سنوات خبرة' },
+      { value: '50+', label: 'دولة مخدومة' },
       { value: 'Pro', label: 'فريق هندسي' },
       { value: 'ISO', label: 'جودة معتمدة' },
     ],
@@ -1555,7 +1555,7 @@ const ar: Translations = {
     badges: ['استشارة مجانية', 'بدون التزام', 'رد خلال 48 ساعة'],
   },
   footer: {
-    description: 'تقنية شاشات COB LED المتميزة وأنظمة بصرية للتطبيقات المتطلبة حول العالم. تميز هندسي منذ 2006.',
+    description: 'تقنية شاشات COB LED المتميزة وأنظمة بصرية للتطبيقات المتطلبة حول العالم. من تصميم فريق يمتلك أكثر من 20 عامًا من الخبرة في شاشات LED.',
     products: 'المنتجات',
     solutions: 'الحلول',
     about: 'حول',

@@ -227,7 +227,7 @@ const CompanyOverview = () => {
                 </h2>
                 <p className="mb-10 text-lg leading-[1.8] text-muted-foreground">With projects delivered across six continents, VEXALED combines global manufacturing scale with regional engineering support.</p>
                 <ul className="space-y-4">
-                  {["Headquarters & R&D in Europe", "Manufacturing facilities in Asia", "Regional engineering teams across EMEA, Americas & APAC", "Certified to IEC, UL, CE, and FCC standards"].map((item, i) => (
+                  {["Headquarters & manufacturing in Foshan, Guangdong, China", "Engineering team with 20+ years of LED display expertise", "Global delivery to projects in 50+ countries", "Certified to IEC, UL, CE, and FCC standards"].map((item, i) => (
                     <Reveal key={i} delay={i * 0.08}>
                       <li className="flex items-start gap-4 text-foreground"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary/60" /><span className="text-base">{item}</span></li>
                     </Reveal>

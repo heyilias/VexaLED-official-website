@@ -120,11 +120,11 @@ export const faqDatabase: FAQEntry[] = [
   {
     keywords: ['about', 'company', 'vexaled', 'who', 'history', 'شركة', '公司'],
     answer: {
-      en: '**VEXALED** is a global LED display technology company:\n\n• **Founded:** 2006\n• **Headquarters:** Shenzhen, China\n• **Global reach:** 120+ countries served\n• **Manufacturing:** 50,000m² ISO-certified facility\n• **Team:** 500+ employees including 80+ R&D engineers\n• **Certifications:** ISO 9001, ISO 14001, CE, FCC, UL, RoHS\n\nWe specialize in COB LED display technology and provide end-to-end solutions from design to installation and after-sales support.\n\n*"We Create, We Enjoy, We Share — We are VEXA."*',
-      zh: '**VEXALED** 是一家全球 LED 显示技术公司。成立于 2006 年，总部位于深圳，服务 120+ 国家，50,000m² ISO 认证工厂，500+ 员工。',
-      es: '**VEXALED** es una empresa global de tecnología LED. Fundada en 2006, sirve 120+ países, fábrica certificada ISO de 50,000m².',
-      fr: '**VEXALED** est une entreprise mondiale de technologie LED. Fondée en 2006, 120+ pays desservis, usine certifiée ISO de 50 000m².',
-      ar: '**VEXALED** شركة عالمية لتقنية شاشات LED. تأسست عام 2006، تخدم 120+ دولة، مصنع معتمد ISO بمساحة 50,000م².',
+      en: '**VEXALED** is an LED display technology brand:\n\n• **Founded:** 2026\n• **Headquarters:** Foshan, Guangdong, China\n• **Team:** Industry veterans with 20+ years of combined LED display expertise\n• **Reach:** Projects delivered in 50+ countries\n• **Manufacturing:** ISO-certified production\n• **Certifications:** ISO 9001, CE, FCC, UL, RoHS\n\nWe specialize in COB and fine-pitch LED display technology and provide end-to-end solutions from design to installation and after-sales support.\n\n*"We Create, We Enjoy, We Share — We are VEXA."*',
+      zh: '**VEXALED** 是一家 LED 显示技术品牌。成立于 2026 年，总部位于中国广东佛山。团队拥有 20 多年的 LED 显示技术经验，已在 50+ 国家交付项目，ISO 认证制造。',
+      es: '**VEXALED** es una marca de tecnología LED. Fundada en 2026, con sede en Foshan, Guangdong, China. Equipo con más de 20 años de experiencia en pantallas LED, proyectos entregados en más de 50 países, fabricación certificada ISO.',
+      fr: '**VEXALED** est une marque de technologie d\'affichage LED. Fondée en 2026, basée à Foshan, Guangdong, Chine. Équipe forte de plus de 20 ans d\'expertise LED, projets livrés dans plus de 50 pays, fabrication certifiée ISO.',
+      ar: '**VEXALED** علامة تجارية لتقنية شاشات LED. تأسست عام 2026، مقرها فوشان، قوانغدونغ، الصين. فريق يمتلك أكثر من 20 عامًا من الخبرة في شاشات LED، مشاريع منجزة في أكثر من 50 دولة، تصنيع معتمد ISO.',
     },
   },
   {
@@ -150,11 +150,11 @@ export const faqDatabase: FAQEntry[] = [
   {
     keywords: ['contact', 'email', 'phone', 'reach', 'talk', 'human', 'agent', 'اتصل', '联系'],
     answer: {
-      en: 'You can reach the VEXALED team through:\n\n📧 **Email:** info@vexaled.com\n📧 **Sales:** sales@vexaled.com\n📧 **Support:** support@vexaled.com\n\n🌐 **Global offices:**\n• Shenzhen (HQ)\n• Dubai\n• Los Angeles\n• Amsterdam\n\nOr use the **"Talk to an Engineer"** button on our website for immediate assistance. Our team typically responds within 24 hours.',
-      zh: '联系 VEXALED：\n📧 info@vexaled.com\n📧 sales@vexaled.com\n\n全球办公室：深圳（总部）、迪拜、洛杉矶、阿姆斯特丹。',
-      es: 'Contacto: info@vexaled.com, sales@vexaled.com. Oficinas: Shenzhen, Dubái, Los Ángeles, Ámsterdam.',
-      fr: 'Contact : info@vexaled.com, sales@vexaled.com. Bureaux : Shenzhen, Dubaï, Los Angeles, Amsterdam.',
-      ar: 'اتصل بنا: info@vexaled.com، sales@vexaled.com. مكاتب: شنتشن، دبي، لوس أنجلوس، أمستردام.',
+      en: 'You can reach the VEXALED team through:\n\n📧 **Sales:** sales@vexaled.com\n📧 **General:** info@vexaled.com\n📧 **Support:** support@vexaled.com\n\n🏢 **Headquarters:** Foshan, Guangdong, China — with global delivery to projects in 50+ countries.\n\nOr use the **"Talk to an Engineer"** button on our website for immediate assistance. Our team typically responds within 24 hours.',
+      zh: '联系 VEXALED：\n📧 sales@vexaled.com\n📧 info@vexaled.com\n\n总部：中国广东佛山 — 项目交付覆盖 50+ 国家。',
+      es: 'Contacto: sales@vexaled.com, info@vexaled.com. Sede: Foshan, Guangdong, China — proyectos entregados en más de 50 países.',
+      fr: 'Contact : sales@vexaled.com, info@vexaled.com. Siège : Foshan, Guangdong, Chine — projets livrés dans plus de 50 pays.',
+      ar: 'اتصل بنا: sales@vexaled.com، info@vexaled.com. المقر: فوشان، قوانغدونغ، الصين — مشاريع منجزة في أكثر من 50 دولة.',
     },
   },
   {
